@@ -1,0 +1,26 @@
+{
+  "name": "agent-book",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.18.0",
+  "engines": {
+    "node": ">=22.23.2"
+  },
+  "scripts": {
+    "book": "node src/cli.mjs",
+    "config:check": "node src/cli.mjs config:check",
+    "db:initialize": "node scripts/initialize.mjs",
+    "db:migrate": "node scripts/migrate.mjs",
+    "db:bootstrap": "node scripts/bootstrap.mjs",
+    "test": "node scripts/verify-candidate-assertion.mjs --isolated",
+    "test:unit": "node --test test/foundation.unit.test.mjs",
+    "db:test-generation-initialize": "node scripts/test-generation-initialize.mjs"
+  },
+  "dependencies": {
+    "pg": "8.23.0"
+  },
+  "devDependencies": {
+    "node-pg-migrate": "9.0.0"
+  }
+}

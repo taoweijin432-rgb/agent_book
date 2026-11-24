@@ -1,0 +1,8 @@
+{
+  "historicalSubscenarios": 109,
+  "originalRetained": 109,
+  "newRegressionSubscenarios": 10,
+  "currentSubscenarios": 119,
+  "missingHistoricalScenarios": 0,
+  "allPassed": true
+}

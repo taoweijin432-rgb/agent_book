@@ -1,0 +1,53 @@
+{
+  "mode": "regression",
+  "node": "v22.23.2",
+  "connectionSearchPath": "public",
+  "sqlQualification": "evidence_candidate_constraint_fixture.*",
+  "validCommit": {
+    "status": "passed",
+    "stage": "COMMIT",
+    "ids": {
+      "projectId": "public_path_project_1792133614440_3904_1",
+      "workflowRunId": "public_path_workflow_1792133614440_3904_2",
+      "candidateVersionId": "public_path_candidate_1792133614440_3904_3",
+      "eventId": "public_path_event_1792133614440_3904_4",
+      "evidenceId": "public_path_evidence_1792133614440_3904_5"
+    }
+  },
+  "parentOnly": {
+    "status": "failed",
+    "stage": "COMMIT",
+    "code": "23514",
+    "constraint": "evidence_candidate_complete",
+    "message": "Evidence public_path_evidence_1792133614460_3904_10 must have exactly one Candidate source row",
+    "ids": {
+      "projectId": "public_path_project_1792133614460_3904_6",
+      "workflowRunId": "public_path_workflow_1792133614460_3904_7",
+      "candidateVersionId": "public_path_candidate_1792133614460_3904_8",
+      "eventId": "public_path_event_1792133614460_3904_9",
+      "evidenceId": "public_path_evidence_1792133614460_3904_10"
+    },
+    "persistedEvidence": 0
+  },
+  "mutations": {
+    "evidenceMutation": {
+      "status": "failed",
+      "stage": "UPDATE evidence_reference",
+      "code": "23514",
+      "constraint": "evidence_candidate_immutable",
+      "message": "evidence_reference rows are append-only"
+    },
+    "ownershipMutation": {
+      "status": "failed",
+      "stage": "UPDATE candidate_event ownership",
+      "code": "23514",
+      "constraint": "evidence_candidate_complete",
+      "message": "Candidate child ownership is immutable in this fixture"
+    },
+    "finalState": {
+      "locator": "chars:public-path",
+      "project_id": "public_path_project_1792133614440_3904_1",
+      "source_object_id": "public_path_event_1792133614440_3904_4"
+    }
+  }
+}

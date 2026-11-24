@@ -1,0 +1,42 @@
+{
+  "baselineFiles": 424,
+  "unchanged": 417,
+  "changed": [
+    "README.md",
+    "package.json",
+    "docs/16-prototype-consolidation-and-implementation-plan.md",
+    "scripts/verify-test-generation.mjs",
+    "scripts/migrate.mjs",
+    "src/foundation.mjs",
+    "src/cli.mjs"
+  ],
+  "added": [
+    "db/migrations/008_candidate_assertion.mjs",
+    "scripts/verify-candidate-assertion-protected.mjs",
+    "scripts/verify-candidate-assertion.mjs",
+    "src/candidate-assertion.mjs",
+    "test/candidate-assertion.integration.test.mjs",
+    "verification/candidate-assertion/assertion-contract.md",
+    "verification/candidate-assertion/completion.md",
+    "verification/candidate-assertion/delivery.zip",
+    "verification/candidate-assertion/development-result.md",
+    "verification/candidate-assertion/file-manifest.md",
+    "verification/candidate-assertion/final-checks.json",
+    "verification/candidate-assertion/legacy/approval-regression.md",
+    "verification/candidate-assertion/legacy/context-regression.md",
+    "verification/candidate-assertion/legacy/legacy-regression.md",
+    "verification/candidate-assertion/legacy/run-result.md",
+    "verification/candidate-assertion/legacy/validation-regression.md",
+    "verification/candidate-assertion/legacy/workflow-regression.md",
+    "verification/candidate-assertion/package-check.json",
+    "verification/candidate-assertion/protection-result.json",
+    "verification/candidate-assertion/run-result.md",
+    "verification/candidate-assertion/workspace-before.json"
+  ],
+  "deleted": [],
+  "invalid": [],
+  "oldMigrationsUnchanged": true,
+  "oldTestsUnchanged": true,
+  "oldVerificationUnchanged": true,
+  "ok": true
+}

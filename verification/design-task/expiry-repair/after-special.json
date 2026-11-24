@@ -1,0 +1,617 @@
+{
+  "runId": "ce3a1931-c282-4b2b-b438-8b2101bde42c",
+  "special": {
+    "stage": "runner_independent_expiry_regressions",
+    "count": 9,
+    "passed": 9,
+    "failed": 0,
+    "skipped": 0,
+    "sharedUpgrade": {
+      "migrationExit": 0,
+      "seededNovels": 4,
+      "withheldNovels": 2,
+      "sourceHistoryUnchanged": true,
+      "replayApplied": 0,
+      "facilities": 0
+    },
+    "cases": [
+      {
+        "name": "both_finite_different_deadlines",
+        "status": "passed",
+        "casePrerequisites": {
+          "source_count": 2,
+          "other_prerequisites": true,
+          "creation_provenance": true,
+          "first_deadline": "2026-10-20 06:51:35.023708+00",
+          "observed_at": "2026-10-20 06:50:35.0332+00",
+          "sources_valid": true,
+          "source_expiries": [
+            {
+              "capability_key": "grant.revoke",
+              "expires_at": "2026-10-20 06:52:05.023708+00",
+              "revoked": false
+            },
+            {
+              "capability_key": "novel.read",
+              "expires_at": "2026-10-20 06:51:35.023708+00",
+              "revoked": false
+            }
+          ]
+        },
+        "expectedExpiry": "2026-10-20 06:51:35.023708+00",
+        "capabilities": [
+          {
+            "capability_key": "design.edit",
+            "expires_at": "2026-10-20 06:51:35.023708+00",
+            "effective_at": "2026-10-20 06:50:35.728437+00"
+          },
+          {
+            "capability_key": "design.freeze",
+            "expires_at": "2026-10-20 06:51:35.023708+00",
+            "effective_at": "2026-10-20 06:50:35.728437+00"
+          },
+          {
+            "capability_key": "design.read",
+            "expires_at": "2026-10-20 06:51:35.023708+00",
+            "effective_at": "2026-10-20 06:50:35.728437+00"
+          },
+          {
+            "capability_key": "structure.manage",
+            "expires_at": "2026-10-20 06:51:35.023708+00",
+            "effective_at": "2026-10-20 06:50:35.728437+00"
+          },
+          {
+            "capability_key": "task.append",
+            "expires_at": "2026-10-20 06:51:35.023708+00",
+            "effective_at": "2026-10-20 06:50:35.728437+00"
+          },
+          {
+            "capability_key": "task.create",
+            "expires_at": "2026-10-20 06:51:35.023708+00",
+            "effective_at": "2026-10-20 06:50:35.728437+00"
+          },
+          {
+            "capability_key": "task.read",
+            "expires_at": "2026-10-20 06:51:35.023708+00",
+            "effective_at": "2026-10-20 06:50:35.728437+00"
+          }
+        ],
+        "disposition": "seeded",
+        "ledger": 2,
+        "realAuthorAllowed": true,
+        "sameUpgrade": true
+      },
+      {
+        "name": "read_finite_revoke_unlimited",
+        "status": "passed",
+        "casePrerequisites": {
+          "source_count": 2,
+          "other_prerequisites": true,
+          "creation_provenance": true,
+          "first_deadline": "2026-10-20 06:51:35.071741+00",
+          "observed_at": "2026-10-20 06:50:35.080015+00",
+          "sources_valid": true,
+          "source_expiries": [
+            {
+              "capability_key": "grant.revoke",
+              "expires_at": null,
+              "revoked": false
+            },
+            {
+              "capability_key": "novel.read",
+              "expires_at": "2026-10-20 06:51:35.071741+00",
+              "revoked": false
+            }
+          ]
+        },
+        "expectedExpiry": "2026-10-20 06:51:35.071741+00",
+        "capabilities": [
+          {
+            "capability_key": "design.edit",
+            "expires_at": "2026-10-20 06:51:35.071741+00",
+            "effective_at": "2026-10-20 06:50:35.729043+00"
+          },
+          {
+            "capability_key": "design.freeze",
+            "expires_at": "2026-10-20 06:51:35.071741+00",
+            "effective_at": "2026-10-20 06:50:35.729043+00"
+          },
+          {
+            "capability_key": "design.read",
+            "expires_at": "2026-10-20 06:51:35.071741+00",
+            "effective_at": "2026-10-20 06:50:35.729043+00"
+          },
+          {
+            "capability_key": "structure.manage",
+            "expires_at": "2026-10-20 06:51:35.071741+00",
+            "effective_at": "2026-10-20 06:50:35.729043+00"
+          },
+          {
+            "capability_key": "task.append",
+            "expires_at": "2026-10-20 06:51:35.071741+00",
+            "effective_at": "2026-10-20 06:50:35.729043+00"
+          },
+          {
+            "capability_key": "task.create",
+            "expires_at": "2026-10-20 06:51:35.071741+00",
+            "effective_at": "2026-10-20 06:50:35.729043+00"
+          },
+          {
+            "capability_key": "task.read",
+            "expires_at": "2026-10-20 06:51:35.071741+00",
+            "effective_at": "2026-10-20 06:50:35.729043+00"
+          }
+        ],
+        "disposition": "seeded",
+        "ledger": 2,
+        "realAuthorAllowed": true,
+        "sameUpgrade": true
+      },
+      {
+        "name": "read_unlimited_revoke_finite",
+        "status": "passed",
+        "casePrerequisites": {
+          "source_count": 2,
+          "other_prerequisites": true,
+          "creation_provenance": true,
+          "first_deadline": "2026-10-20 06:51:35.118111+00",
+          "observed_at": "2026-10-20 06:50:35.127052+00",
+          "sources_valid": true,
+          "source_expiries": [
+            {
+              "capability_key": "grant.revoke",
+              "expires_at": "2026-10-20 06:51:35.118111+00",
+              "revoked": false
+            },
+            {
+              "capability_key": "novel.read",
+              "expires_at": null,
+              "revoked": false
+            }
+          ]
+        },
+        "expectedExpiry": "2026-10-20 06:51:35.118111+00",
+        "capabilities": [
+          {
+            "capability_key": "design.edit",
+            "expires_at": "2026-10-20 06:51:35.118111+00",
+            "effective_at": "2026-10-20 06:50:35.726613+00"
+          },
+          {
+            "capability_key": "design.freeze",
+            "expires_at": "2026-10-20 06:51:35.118111+00",
+            "effective_at": "2026-10-20 06:50:35.726613+00"
+          },
+          {
+            "capability_key": "design.read",
+            "expires_at": "2026-10-20 06:51:35.118111+00",
+            "effective_at": "2026-10-20 06:50:35.726613+00"
+          },
+          {
+            "capability_key": "structure.manage",
+            "expires_at": "2026-10-20 06:51:35.118111+00",
+            "effective_at": "2026-10-20 06:50:35.726613+00"
+          },
+          {
+            "capability_key": "task.append",
+            "expires_at": "2026-10-20 06:51:35.118111+00",
+            "effective_at": "2026-10-20 06:50:35.726613+00"
+          },
+          {
+            "capability_key": "task.create",
+            "expires_at": "2026-10-20 06:51:35.118111+00",
+            "effective_at": "2026-10-20 06:50:35.726613+00"
+          },
+          {
+            "capability_key": "task.read",
+            "expires_at": "2026-10-20 06:51:35.118111+00",
+            "effective_at": "2026-10-20 06:50:35.726613+00"
+          }
+        ],
+        "disposition": "seeded",
+        "ledger": 2,
+        "realAuthorAllowed": true,
+        "sameUpgrade": true
+      },
+      {
+        "name": "both_unlimited",
+        "status": "passed",
+        "casePrerequisites": {
+          "source_count": 2,
+          "other_prerequisites": true,
+          "creation_provenance": true,
+          "first_deadline": null,
+          "observed_at": "2026-10-20 06:50:35.171236+00",
+          "sources_valid": true,
+          "source_expiries": [
+            {
+              "capability_key": "grant.revoke",
+              "expires_at": null,
+              "revoked": false
+            },
+            {
+              "capability_key": "novel.read",
+              "expires_at": null,
+              "revoked": false
+            }
+          ]
+        },
+        "expectedExpiry": null,
+        "capabilities": [
+          {
+            "capability_key": "design.edit",
+            "expires_at": null,
+            "effective_at": "2026-10-20 06:50:35.729658+00"
+          },
+          {
+            "capability_key": "design.freeze",
+            "expires_at": null,
+            "effective_at": "2026-10-20 06:50:35.729658+00"
+          },
+          {
+            "capability_key": "design.read",
+            "expires_at": null,
+            "effective_at": "2026-10-20 06:50:35.729658+00"
+          },
+          {
+            "capability_key": "structure.manage",
+            "expires_at": null,
+            "effective_at": "2026-10-20 06:50:35.729658+00"
+          },
+          {
+            "capability_key": "task.append",
+            "expires_at": null,
+            "effective_at": "2026-10-20 06:50:35.729658+00"
+          },
+          {
+            "capability_key": "task.create",
+            "expires_at": null,
+            "effective_at": "2026-10-20 06:50:35.729658+00"
+          },
+          {
+            "capability_key": "task.read",
+            "expires_at": null,
+            "effective_at": "2026-10-20 06:50:35.729658+00"
+          }
+        ],
+        "disposition": "seeded",
+        "ledger": 2,
+        "realAuthorAllowed": true,
+        "sameUpgrade": true
+      },
+      {
+        "name": "initially_expired",
+        "status": "passed",
+        "casePrerequisites": {
+          "source_count": 2,
+          "other_prerequisites": true,
+          "creation_provenance": true,
+          "first_deadline": "2026-10-20 06:50:35.456035+00",
+          "observed_at": "2026-10-20 06:50:35.215388+00",
+          "sources_valid": true,
+          "source_expiries": [
+            {
+              "capability_key": "grant.revoke",
+              "expires_at": null,
+              "revoked": false
+            },
+            {
+              "capability_key": "novel.read",
+              "expires_at": "2026-10-20 06:50:35.456035+00",
+              "revoked": false
+            }
+          ],
+          "databaseObservedExpiredBeforeMigration": "2026-10-20 06:50:35.462949+00"
+        },
+        "expectedExpiry": "2026-10-20 06:50:35.456035+00",
+        "capabilities": [],
+        "disposition": "withheld_revoked_or_expired",
+        "ledger": 2,
+        "realAuthorAllowed": false,
+        "sameUpgrade": true
+      },
+      {
+        "name": "initially_revoked",
+        "status": "passed",
+        "casePrerequisites": {
+          "source_count": 2,
+          "other_prerequisites": true,
+          "creation_provenance": true,
+          "first_deadline": null,
+          "observed_at": "2026-10-20 06:50:35.578702+00",
+          "sources_valid": false,
+          "source_expiries": [
+            {
+              "capability_key": "grant.revoke",
+              "expires_at": null,
+              "revoked": true
+            },
+            {
+              "capability_key": "novel.read",
+              "expires_at": null,
+              "revoked": true
+            }
+          ]
+        },
+        "expectedExpiry": null,
+        "capabilities": [],
+        "disposition": "withheld_revoked_or_expired",
+        "ledger": 2,
+        "realAuthorAllowed": false,
+        "sameUpgrade": true
+      },
+      {
+        "name": "eligible_then_expired_before_seed",
+        "status": "passed",
+        "synchronization": {
+          "migrationPid": 91,
+          "blockerPid": 90,
+          "wait_event": "advisory",
+          "actualStageConfirmed": true,
+          "stage": "DDL_execution_after_up_eligibility_before_seed_inserts",
+          "sourceDeadline": "2026-10-20 06:50:40.467393+00",
+          "databaseObservedAfterDeadline": "2026-10-20 06:50:40.469833+00",
+          "release": "COMMIT"
+        },
+        "migrationExit": 1,
+        "failedUpgrade": {
+          "grants": [],
+          "ledger": 1,
+          "disposition": null,
+          "faultFacilities": 0
+        },
+        "retryExit": 0,
+        "retry": {
+          "casePrerequisites": {
+            "source_count": 2,
+            "other_prerequisites": true,
+            "creation_provenance": true,
+            "first_deadline": "2026-10-20 06:50:40.467393+00",
+            "observed_at": "2026-10-20 06:50:37.676151+00",
+            "sources_valid": true,
+            "source_expiries": [
+              {
+                "capability_key": "grant.revoke",
+                "expires_at": null,
+                "revoked": false
+              },
+              {
+                "capability_key": "novel.read",
+                "expires_at": "2026-10-20 06:50:40.467393+00",
+                "revoked": false
+              }
+            ]
+          },
+          "expectedExpiry": null,
+          "capabilities": [],
+          "disposition": "withheld_revoked_or_expired",
+          "ledger": 2,
+          "realAuthorAllowed": false
+        },
+        "sourceHistoryUnchanged": true,
+        "facilities": 0
+      },
+      {
+        "name": "seeded_finite_then_expired_before_commit",
+        "status": "passed",
+        "synchronization": {
+          "migrationPid": 92,
+          "blockerPid": 91,
+          "wait_event": "advisory",
+          "actualStageConfirmed": true,
+          "stage": "all_seed_inserts_completed_before_immutable_triggers_and_commit",
+          "sourceDeadline": "2026-10-20 06:50:45.40059+00",
+          "databaseObservedAfterDeadline": "2026-10-20 06:50:45.406524+00",
+          "release": "COMMIT"
+        },
+        "migrationExit": 0,
+        "casePrerequisites": {
+          "source_count": 2,
+          "other_prerequisites": true,
+          "creation_provenance": true,
+          "first_deadline": "2026-10-20 06:50:45.40059+00",
+          "observed_at": "2026-10-20 06:50:42.6116+00",
+          "sources_valid": true,
+          "source_expiries": [
+            {
+              "capability_key": "grant.revoke",
+              "expires_at": "2026-10-20 06:50:45.40059+00",
+              "revoked": false
+            },
+            {
+              "capability_key": "novel.read",
+              "expires_at": null,
+              "revoked": false
+            }
+          ]
+        },
+        "expectedExpiry": "2026-10-20 06:50:45.40059+00",
+        "capabilities": [
+          {
+            "capability_key": "design.edit",
+            "expires_at": "2026-10-20 06:50:45.40059+00",
+            "effective_at": "2026-10-20 06:50:42.855477+00"
+          },
+          {
+            "capability_key": "design.freeze",
+            "expires_at": "2026-10-20 06:50:45.40059+00",
+            "effective_at": "2026-10-20 06:50:42.855477+00"
+          },
+          {
+            "capability_key": "design.read",
+            "expires_at": "2026-10-20 06:50:45.40059+00",
+            "effective_at": "2026-10-20 06:50:42.855477+00"
+          },
+          {
+            "capability_key": "structure.manage",
+            "expires_at": "2026-10-20 06:50:45.40059+00",
+            "effective_at": "2026-10-20 06:50:42.855477+00"
+          },
+          {
+            "capability_key": "task.append",
+            "expires_at": "2026-10-20 06:50:45.40059+00",
+            "effective_at": "2026-10-20 06:50:42.855477+00"
+          },
+          {
+            "capability_key": "task.create",
+            "expires_at": "2026-10-20 06:50:45.40059+00",
+            "effective_at": "2026-10-20 06:50:42.855477+00"
+          },
+          {
+            "capability_key": "task.read",
+            "expires_at": "2026-10-20 06:50:45.40059+00",
+            "effective_at": "2026-10-20 06:50:42.855477+00"
+          }
+        ],
+        "disposition": "seeded",
+        "ledger": 2,
+        "realAuthorAllowed": false,
+        "sourceHistoryUnchanged": true,
+        "facilities": 0
+      },
+      {
+        "name": "failure_on_fourth_seed_row",
+        "status": "passed",
+        "failureExit": 1,
+        "observedInsertAttempts": 4,
+        "wholeUpgradeRolledBack": true,
+        "migrationLedgerAfterFailure": 1,
+        "upgradeTableAfterFailureAbsent": true,
+        "grantsAfterFailure": 0,
+        "retryExit": 0,
+        "retry": [
+          {
+            "casePrerequisites": {
+              "source_count": 2,
+              "other_prerequisites": true,
+              "creation_provenance": true,
+              "first_deadline": null,
+              "observed_at": "2026-10-20 06:50:47.287895+00",
+              "sources_valid": true,
+              "source_expiries": [
+                {
+                  "capability_key": "grant.revoke",
+                  "expires_at": null,
+                  "revoked": false
+                },
+                {
+                  "capability_key": "novel.read",
+                  "expires_at": null,
+                  "revoked": false
+                }
+              ]
+            },
+            "expectedExpiry": null,
+            "capabilities": [
+              {
+                "capability_key": "design.edit",
+                "expires_at": null,
+                "effective_at": "2026-10-20 06:50:47.548632+00"
+              },
+              {
+                "capability_key": "design.freeze",
+                "expires_at": null,
+                "effective_at": "2026-10-20 06:50:47.548632+00"
+              },
+              {
+                "capability_key": "design.read",
+                "expires_at": null,
+                "effective_at": "2026-10-20 06:50:47.548632+00"
+              },
+              {
+                "capability_key": "structure.manage",
+                "expires_at": null,
+                "effective_at": "2026-10-20 06:50:47.548632+00"
+              },
+              {
+                "capability_key": "task.append",
+                "expires_at": null,
+                "effective_at": "2026-10-20 06:50:47.548632+00"
+              },
+              {
+                "capability_key": "task.create",
+                "expires_at": null,
+                "effective_at": "2026-10-20 06:50:47.548632+00"
+              },
+              {
+                "capability_key": "task.read",
+                "expires_at": null,
+                "effective_at": "2026-10-20 06:50:47.548632+00"
+              }
+            ],
+            "disposition": "seeded",
+            "ledger": 2,
+            "realAuthorAllowed": true
+          },
+          {
+            "casePrerequisites": {
+              "source_count": 2,
+              "other_prerequisites": true,
+              "creation_provenance": true,
+              "first_deadline": null,
+              "observed_at": "2026-10-20 06:50:47.323148+00",
+              "sources_valid": true,
+              "source_expiries": [
+                {
+                  "capability_key": "grant.revoke",
+                  "expires_at": null,
+                  "revoked": false
+                },
+                {
+                  "capability_key": "novel.read",
+                  "expires_at": null,
+                  "revoked": false
+                }
+              ]
+            },
+            "expectedExpiry": null,
+            "capabilities": [
+              {
+                "capability_key": "design.edit",
+                "expires_at": null,
+                "effective_at": "2026-10-20 06:50:47.549929+00"
+              },
+              {
+                "capability_key": "design.freeze",
+                "expires_at": null,
+                "effective_at": "2026-10-20 06:50:47.549929+00"
+              },
+              {
+                "capability_key": "design.read",
+                "expires_at": null,
+                "effective_at": "2026-10-20 06:50:47.549929+00"
+              },
+              {
+                "capability_key": "structure.manage",
+                "expires_at": null,
+                "effective_at": "2026-10-20 06:50:47.549929+00"
+              },
+              {
+                "capability_key": "task.append",
+                "expires_at": null,
+                "effective_at": "2026-10-20 06:50:47.549929+00"
+              },
+              {
+                "capability_key": "task.create",
+                "expires_at": null,
+                "effective_at": "2026-10-20 06:50:47.549929+00"
+              },
+              {
+                "capability_key": "task.read",
+                "expires_at": null,
+                "effective_at": "2026-10-20 06:50:47.549929+00"
+              }
+            ],
+            "disposition": "seeded",
+            "ledger": 2,
+            "realAuthorAllowed": true
+          }
+        ],
+        "sourceHistoryUnchanged": true,
+        "facilities": 0
+      }
+    ]
+  },
+  "containerCleanup": true,
+  "temporaryCleanup": true
+}

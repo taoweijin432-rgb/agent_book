@@ -1,0 +1,7 @@
+核验状态：PASS
+受保护文件：修改前 163；修改后 163
+保护范围：docs/00—15 全部文件；Time Interval、Candidate、Canon、Design、Tool、Unified Evidence、Projection Attempt、Projection Checkpoint 八个旧原型全部文件（排除 node_modules）；根文件（.gitignore 单独核验）
+逐文件 SHA-256、文件集合比较：全部一致
+.gitignore 原文完整保留，仅追加：prototypes/canon-commit-preconditions/.test-results.json
+新增字节数：57；预期：57
+Git 状态已保存；本脚本仅执行 git status，不暂存、提交、推送、reset 或 clean。

@@ -1,0 +1,16 @@
+import {readdir,readFile,writeFile} from 'node:fs/promises';import path from 'node:path';import {createHash} from 'node:crypto';
+const root=path.resolve(import.meta.dirname,'..'),dir='verification/candidate-assertion',sha=b=>createHash('sha256').update(b).digest('hex');
+const allowed=new Set(['README.md','package.json','docs/16-prototype-consolidation-and-implementation-plan.md','src/cli.mjs','src/foundation.mjs','scripts/migrate.mjs','scripts/verify-test-generation.mjs']);
+const newCode=new Set(['db/migrations/008_candidate_assertion.mjs','src/candidate-assertion.mjs','test/candidate-assertion.integration.test.mjs','scripts/verify-candidate-assertion.mjs','scripts/verify-candidate-assertion-protected.mjs']);
+async function files(sub=''){const found=[];for(const e of await readdir(path.join(root,sub),{withFileTypes:true})){if(['node_modules','.git','.cache'].includes(e.name)||e.isSymbolicLink())continue;const p=path.posix.join(sub,e.name);if(e.isDirectory())found.push(...await files(p));else if(e.isFile())found.push(p);}return found;}
+const before=JSON.parse(await readFile(path.join(root,dir,'workspace-before.json'))),after={};for(const f of await files())after[f]=sha(await readFile(path.join(root,f)));
+const changed=Object.keys(before).filter(f=>after[f]!==before[f]),deleted=Object.keys(before).filter(f=>!Object.hasOwn(after,f)),added=Object.keys(after).filter(f=>!Object.hasOwn(before,f));
+const invalid=[...changed.filter(f=>!allowed.has(f)),...added.filter(f=>!newCode.has(f)&&!f.startsWith(dir+'/'))];
+const result={baselineFiles:Object.keys(before).length,unchanged:Object.keys(before).length-changed.length,changed,added,deleted,invalid,oldMigrationsUnchanged:[1,2,3,4,5,6,7].every(i=>Object.keys(before).filter(f=>f.startsWith(`db/migrations/00${i}_`)).every(f=>before[f]===after[f])),oldTestsUnchanged:Object.keys(before).filter(f=>f.startsWith('test/')).every(f=>before[f]===after[f]),oldVerificationUnchanged:Object.keys(before).filter(f=>f.startsWith('verification/')).every(f=>before[f]===after[f]),ok:deleted.length===0&&invalid.length===0};
+if(!result.ok)throw new Error('PROTECTION_FAILED');
+await writeFile(path.join(root,dir,'protection-result.json'),JSON.stringify(result,null,2)+'\n');
+const deliver=[...changed,...added].filter(f=>f!==dir+'/delivery.zip'&&f!==dir+'/file-manifest.md'&&f!==dir+'/package-check.json').sort();if(!deliver.includes(dir+'/protection-result.json'))deliver.push(dir+'/protection-result.json');
+const rows=await Promise.all(deliver.map(async f=>`| ${f} | ${sha(await readFile(path.join(root,f)))} |`));
+await writeFile(path.join(root,dir,'file-manifest.md'),['# 本轮实际文件与 SHA-256','',`初始 ${result.baselineFiles} 文件；原字节保持 ${result.unchanged}，修改 ${changed.length}，删除 ${deleted.length}，越界 ${invalid.length}。旧 001—007、旧测试、docs/00—15、十三个原型、旧验收及依赖锁保持原字节。`,
+'', '本目录 workspace-before.json 为本轮新建保护基线，未重建或覆盖历史基线。枚举跳过依赖/缓存/.git 与符号链接。delivery.zip 只含本清单和本轮实际修改/新增文件；不含自身、package-check.json、依赖、凭据或临时结果。归档/清单 SHA-256 由外部 package-check.json 记录，避免自引用；该校验信封不列自身 hash。', '', '| 仓库相对路径 | SHA-256 |','|---|---|',...rows,'','清单自身不列自身 hash；delivery.zip 外部摘要见 package-check.json。',''].join('\n'));
+process.stdout.write(JSON.stringify({ok:true,baseline:result.baselineFiles,unchanged:result.unchanged,modified:changed.length,newFiles:added.length,deleted:0,outOfScope:0})+'\n');

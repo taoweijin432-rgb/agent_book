@@ -1,0 +1,72 @@
+本轮：当前权限原型审计读取 Scope 最小修复（不新增原型）
+
+本轮修改：6 个既有文件（相对当前原型目录）
+README.md
+migrations/001_authorization_safe_context.mjs
+test/authorization-safe-context.test.mjs
+verification/runner-result.md
+verification/security-evidence.md
+verification/file-manifest.txt
+
+本轮新增核验材料：17 个文件
+verification/audit-scope-repair/before/README.md
+verification/audit-scope-repair/before/migrations/001_authorization_safe_context.mjs
+verification/audit-scope-repair/before/test/authorization-safe-context.test.mjs
+verification/audit-scope-repair/before/verification/file-manifest.txt
+verification/audit-scope-repair/before/verification/runner-result.md
+verification/audit-scope-repair/before/verification/security-evidence.md
+verification/audit-scope-repair/git-status-after.txt
+verification/audit-scope-repair/git-status-before.txt
+verification/audit-scope-repair/hash-validation.txt
+verification/audit-scope-repair/implementation.patch
+verification/audit-scope-repair/protected-sha256-after.txt
+verification/audit-scope-repair/protected-sha256-before.txt
+verification/audit-scope-repair/reproduce-before.mjs
+verification/audit-scope-repair/reproduction-before.md
+verification/audit-scope-repair/scenario-comparison.json
+verification/audit-scope-repair/scope.json
+verification/audit-scope-repair/verify-protected.mjs
+
+当前原型全部交付：38 个文件（排除 node_modules 和临时结果）
+.DS_Store
+README.md
+lib/tool-gateway.mjs
+migrations/001_authorization_safe_context.mjs
+package.json
+pnpm-lock.yaml
+scripts/run-prototype.mjs
+test/authorization-safe-context.test.mjs
+verification/audit-scope-repair/before/README.md
+verification/audit-scope-repair/before/migrations/001_authorization_safe_context.mjs
+verification/audit-scope-repair/before/test/authorization-safe-context.test.mjs
+verification/audit-scope-repair/before/verification/file-manifest.txt
+verification/audit-scope-repair/before/verification/runner-result.md
+verification/audit-scope-repair/before/verification/security-evidence.md
+verification/audit-scope-repair/git-status-after.txt
+verification/audit-scope-repair/git-status-before.txt
+verification/audit-scope-repair/hash-validation.txt
+verification/audit-scope-repair/implementation.patch
+verification/audit-scope-repair/protected-sha256-after.txt
+verification/audit-scope-repair/protected-sha256-before.txt
+verification/audit-scope-repair/reproduce-before.mjs
+verification/audit-scope-repair/reproduction-before.md
+verification/audit-scope-repair/scenario-comparison.json
+verification/audit-scope-repair/scope.json
+verification/audit-scope-repair/verify-protected.mjs
+verification/file-manifest.txt
+verification/git-status-after.txt
+verification/git-status-before.txt
+verification/gitignore-after.sha256
+verification/gitignore-before.sha256
+verification/gitignore-before.txt
+verification/hash-validation.txt
+verification/protected-sha256-after.txt
+verification/protected-sha256-before.txt
+verification/runner-result.md
+verification/security-evidence.md
+verification/verify-protected.mjs
+归档.zip
+
+运行器、工具网关、package.json、锁文件、根 .gitignore 及原始保护清单/脚本均未修改。
+历史 109 场景报告、本轮修改前原文件快照保留在 audit-scope-repair/before/；新保护基线采用独立名称。
+仅 Git status；没有暂存、提交、推送、reset 或 clean。

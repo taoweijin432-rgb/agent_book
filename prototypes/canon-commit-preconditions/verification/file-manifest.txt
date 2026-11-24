@@ -1,0 +1,17 @@
+README.md
+migrations/001_preconditions.mjs
+package.json
+pnpm-lock.yaml
+scripts/run-prototype.mjs
+test/preconditions.test.mjs
+verification/file-manifest.txt
+verification/git-status-after.txt
+verification/git-status-before.txt
+verification/gitignore-after.sha256
+verification/gitignore-before.sha256
+verification/gitignore-before.txt
+verification/hash-validation.txt
+verification/protected-sha256-after.txt
+verification/protected-sha256-before.txt
+verification/runner-result.md
+verification/verify-protected.mjs

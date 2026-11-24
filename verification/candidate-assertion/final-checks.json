@@ -1,0 +1,25 @@
+{
+  "syntax": {
+    "files": 55,
+    "failures": []
+  },
+  "markdownPaths": {
+    "checked": 130,
+    "broken": []
+  },
+  "gitOperations": "status/diff read-only; no staging/commit/push/reset/clean",
+  "testCommand": "pnpm test",
+  "testRunId": "423cf27f-f8f3-4ab8-816a-fca335eb702d",
+  "nodeNewTests": {
+    "topLevel": 6,
+    "subscenarios": 52,
+    "failed": 0,
+    "skipped": 0
+  },
+  "oldAuthorizationTimeCases": 11,
+  "cleanup": {
+    "runnersConfirmed": true,
+    "labeledContainersRemaining": 0
+  },
+  "sensitiveFixturesNotPersisted": true
+}

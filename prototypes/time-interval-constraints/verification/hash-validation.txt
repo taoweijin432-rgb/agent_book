@@ -1,0 +1,9 @@
+before_manifest=protected-docs-sha256-before.txt
+after_manifest=protected-docs-sha256-after.txt
+file_count_before=16
+file_count_after=16
+paths_unique_before=16
+paths_unique_after=16
+hash_format=all match ^[0-9a-f]{64}$
+file_set_complete=true
+before_after_equal=true

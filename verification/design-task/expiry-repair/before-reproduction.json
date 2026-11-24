@@ -1,0 +1,70 @@
+{
+  "runId": "832ea5f3-63cf-4a0a-9b47-2ae171b042fc",
+  "conclusion": "reproduced",
+  "beforeQualification": {
+    "source_count": 2,
+    "other_prerequisites": true,
+    "creation_provenance": true,
+    "first_deadline": "2026-10-20 06:45:16.277178+00",
+    "observed_at": "2026-10-20 06:45:13.486324+00",
+    "sources_valid": true
+  },
+  "synchronization": {
+    "migrationPid": 90,
+    "blockerPid": 89,
+    "wait_event": "advisory",
+    "actualStageConfirmed": true,
+    "stage": "DDL_execution_after_up_eligibility_before_seed_inserts",
+    "sourceDeadline": "2026-10-20 06:45:16.277178+00",
+    "databaseObservedAfterDeadline": "2026-10-20 06:45:16.290294+00",
+    "release": "COMMIT"
+  },
+  "migrationExit": 0,
+  "persisted": {
+    "grants": [
+      {
+        "capability_key": "design.edit",
+        "expires_at": null,
+        "effective_at": "2026-10-20 06:45:16.344006+00"
+      },
+      {
+        "capability_key": "design.freeze",
+        "expires_at": null,
+        "effective_at": "2026-10-20 06:45:16.344637+00"
+      },
+      {
+        "capability_key": "design.read",
+        "expires_at": null,
+        "effective_at": "2026-10-20 06:45:16.343282+00"
+      },
+      {
+        "capability_key": "structure.manage",
+        "expires_at": null,
+        "effective_at": "2026-10-20 06:45:16.342111+00"
+      },
+      {
+        "capability_key": "task.append",
+        "expires_at": null,
+        "effective_at": "2026-10-20 06:45:16.346513+00"
+      },
+      {
+        "capability_key": "task.create",
+        "expires_at": null,
+        "effective_at": "2026-10-20 06:45:16.345877+00"
+      },
+      {
+        "capability_key": "task.read",
+        "expires_at": null,
+        "effective_at": "2026-10-20 06:45:16.345279+00"
+      }
+    ],
+    "ledger": 2,
+    "disposition": "seeded",
+    "faultFacilities": 0
+  },
+  "authorAllowedAfterSourceExpiry": true,
+  "originalGrantsAndRevocationsUnchanged": true,
+  "qualificationTrueConfirmedBySevenSeededRows": true,
+  "containerCleanup": true,
+  "temporaryCleanup": true
+}

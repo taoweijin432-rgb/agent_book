@@ -1,0 +1,9 @@
+{
+  "mode": "local",
+  "host": "127.0.0.1",
+  "port": 5432,
+  "database": "agent_book_local",
+  "user": "REPLACE_WITH_ONE_LOGIN",
+  "password": "REPLACE_WITH_PASSWORD",
+  "instanceId": "REPLACE_WITH_INSTALLATION_UUID"
+}

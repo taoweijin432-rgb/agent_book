@@ -1,0 +1,17 @@
+prototypes/projection-attempt-lifecycle/README.md
+prototypes/projection-attempt-lifecycle/migrations/001_projection_attempt_fixture.mjs
+prototypes/projection-attempt-lifecycle/package.json
+prototypes/projection-attempt-lifecycle/pnpm-lock.yaml
+prototypes/projection-attempt-lifecycle/scripts/run-prototype.mjs
+prototypes/projection-attempt-lifecycle/test/projection-attempt.test.mjs
+prototypes/projection-attempt-lifecycle/verification/file-manifest.txt
+prototypes/projection-attempt-lifecycle/verification/git-status-after.txt
+prototypes/projection-attempt-lifecycle/verification/git-status-before.txt
+prototypes/projection-attempt-lifecycle/verification/gitignore-after.sha256
+prototypes/projection-attempt-lifecycle/verification/gitignore-before.sha256
+prototypes/projection-attempt-lifecycle/verification/gitignore-before.txt
+prototypes/projection-attempt-lifecycle/verification/hash-validation.txt
+prototypes/projection-attempt-lifecycle/verification/protected-sha256-after.txt
+prototypes/projection-attempt-lifecycle/verification/protected-sha256-before.txt
+prototypes/projection-attempt-lifecycle/verification/runner-result.md
+prototypes/projection-attempt-lifecycle/verification/verify-protected.mjs

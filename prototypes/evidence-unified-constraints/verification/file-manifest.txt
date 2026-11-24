@@ -1,0 +1,17 @@
+prototypes/evidence-unified-constraints/README.md
+prototypes/evidence-unified-constraints/migrations/001_evidence_unified_fixture.mjs
+prototypes/evidence-unified-constraints/package.json
+prototypes/evidence-unified-constraints/pnpm-lock.yaml
+prototypes/evidence-unified-constraints/scripts/run-prototype.mjs
+prototypes/evidence-unified-constraints/test/evidence-unified.test.mjs
+prototypes/evidence-unified-constraints/verification/file-manifest.txt
+prototypes/evidence-unified-constraints/verification/git-status-after.txt
+prototypes/evidence-unified-constraints/verification/git-status-before.txt
+prototypes/evidence-unified-constraints/verification/gitignore-after.sha256
+prototypes/evidence-unified-constraints/verification/gitignore-before.sha256
+prototypes/evidence-unified-constraints/verification/gitignore-before.txt
+prototypes/evidence-unified-constraints/verification/hash-validation.txt
+prototypes/evidence-unified-constraints/verification/protected-sha256-after.txt
+prototypes/evidence-unified-constraints/verification/protected-sha256-before.txt
+prototypes/evidence-unified-constraints/verification/runner-result.md
+prototypes/evidence-unified-constraints/verification/verify-protected.mjs

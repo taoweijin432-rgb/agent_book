@@ -1,0 +1,11 @@
+{
+  "mutable": [
+    "prototypes/authorization-safe-context/README.md",
+    "prototypes/authorization-safe-context/migrations/001_authorization_safe_context.mjs",
+    "prototypes/authorization-safe-context/test/authorization-safe-context.test.mjs",
+    "prototypes/authorization-safe-context/verification/runner-result.md",
+    "prototypes/authorization-safe-context/verification/security-evidence.md",
+    "prototypes/authorization-safe-context/verification/file-manifest.txt"
+  ],
+  "new_records": "prototypes/authorization-safe-context/verification/audit-scope-repair"
+}

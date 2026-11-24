@@ -1,0 +1,6 @@
+protected_file_count=69
+before_sha256_format=valid
+after_sha256_format=valid
+duplicate_paths=0
+missing_or_extra_paths=0
+before_after_identical=true

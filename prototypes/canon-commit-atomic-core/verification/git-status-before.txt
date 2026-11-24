@@ -1,0 +1,5 @@
+?? .gitignore
+?? docs/
+?? prototypes/
+?? time-interval-constraints-prototype-2026-09-28-parent-child.zip
+?? time-interval-constraints-prototype-2026-09-28.zip

@@ -1,0 +1,1404 @@
+{
+  "stage": "after",
+  "runId": "c8380783-7be3-4d3f-b276-3c1d352654d5",
+  "startedAt": "2026-10-27T07:39:28.072Z",
+  "imageDigest": "postgres@sha256:86c951e05bf56c93d95d397747fb8820ac76cc3bedb78f43abd83eedbe3666ae",
+  "migrationSha256": "0ab3679cc9b7bedec03868009e1863939fedd41d45b01666de43869d98e7c566",
+  "migration": {
+    "ok": true,
+    "migrations_applied": 7
+  },
+  "result": {
+    "stage": "after",
+    "cases": [
+      {
+        "name": "test_generation expires between execution and COMMIT",
+        "status": "passed",
+        "evidence": {
+          "mode": "test_generation",
+          "deadline": "2026-10-27 07:39:32.287364+00",
+          "executedAt": "2026-10-27T07:39:30.277855+00:00",
+          "databaseObserved": "2026-10-27 07:39:32.296161+00",
+          "authorPid": 120,
+          "observerPid": 121,
+          "checks": [
+            {
+              "position": 1,
+              "check": "selection_binding",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 2,
+              "check": "body_protocol",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 3,
+              "check": "input_bindings",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 4,
+              "check": "writer_authorization",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 5,
+              "check": "bundle_payload",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 6,
+              "check": "review_bytes",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 7,
+              "check": "author_rule",
+              "required": false,
+              "outcome": "unknown",
+              "code": "RULE_NOT_CHECKED"
+            }
+          ],
+          "rebuiltChecks": [
+            {
+              "position": 1,
+              "check": "selection_binding",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 2,
+              "check": "body_protocol",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 3,
+              "check": "input_bindings",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 4,
+              "check": "writer_authorization",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 5,
+              "check": "bundle_payload",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 6,
+              "check": "review_bytes",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 7,
+              "check": "author_rule",
+              "required": false,
+              "outcome": "unknown",
+              "code": "RULE_NOT_CHECKED"
+            }
+          ],
+          "overall": "passed",
+          "commit": {
+            "ok": true,
+            "sqlstate": null,
+            "error": null
+          },
+          "checksAndHashesUnchanged": true,
+          "persisted": {
+            "runs": 1,
+            "checks": 7,
+            "requests": 1,
+            "successfulAudit": 1,
+            "epochs": 1
+          },
+          "currentApplicable": false,
+          "writerDenied": true
+        }
+      },
+      {
+        "name": "manual_input expires between execution and COMMIT",
+        "status": "passed",
+        "evidence": {
+          "mode": "manual_input",
+          "deadline": "2026-10-27 07:39:34.881319+00",
+          "executedAt": "2026-10-27T07:39:32.832553+00:00",
+          "databaseObserved": "2026-10-27 07:39:34.893064+00",
+          "authorPid": 159,
+          "observerPid": 160,
+          "checks": [
+            {
+              "position": 1,
+              "check": "selection_binding",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 2,
+              "check": "body_protocol",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 3,
+              "check": "input_bindings",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 4,
+              "check": "writer_authorization",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 5,
+              "check": "bundle_payload",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 6,
+              "check": "review_bytes",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 7,
+              "check": "author_rule",
+              "required": false,
+              "outcome": "unknown",
+              "code": "RULE_NOT_CHECKED"
+            }
+          ],
+          "rebuiltChecks": [
+            {
+              "position": 1,
+              "check": "selection_binding",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 2,
+              "check": "body_protocol",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 3,
+              "check": "input_bindings",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 4,
+              "check": "writer_authorization",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 5,
+              "check": "bundle_payload",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 6,
+              "check": "review_bytes",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 7,
+              "check": "author_rule",
+              "required": false,
+              "outcome": "unknown",
+              "code": "RULE_NOT_CHECKED"
+            }
+          ],
+          "overall": "passed",
+          "commit": {
+            "ok": true,
+            "sqlstate": null,
+            "error": null
+          },
+          "checksAndHashesUnchanged": true,
+          "persisted": {
+            "runs": 1,
+            "checks": 7,
+            "requests": 1,
+            "successfulAudit": 1,
+            "epochs": 1
+          },
+          "currentApplicable": false,
+          "writerDenied": true
+        }
+      },
+      {
+        "name": "test_generation already expired before validation",
+        "status": "passed",
+        "evidence": {
+          "mode": "test_generation",
+          "deadline": "2026-10-27 07:39:37.423602+00",
+          "transactionStarted": "2026-10-27 07:39:35.374822+00",
+          "databaseObserved": "2026-10-27 07:39:37.427941+00",
+          "failureStage": "live_validation_admission",
+          "error": "ACCESS_DENIED",
+          "commit": {
+            "ok": true
+          },
+          "persisted": {
+            "runs": 0,
+            "checks": 0,
+            "requests": 0,
+            "successfulAudit": 0,
+            "epochs": 0
+          },
+          "denialAuditPersisted": true,
+          "transactionStartNotUsedForCurrentAuthorization": true
+        }
+      },
+      {
+        "name": "manual_input already expired before validation",
+        "status": "passed",
+        "evidence": {
+          "mode": "manual_input",
+          "deadline": "2026-10-27 07:39:39.987495+00",
+          "transactionStarted": "2026-10-27 07:39:37.890246+00",
+          "databaseObserved": "2026-10-27 07:39:39.993348+00",
+          "failureStage": "live_validation_admission",
+          "error": "ACCESS_DENIED",
+          "commit": {
+            "ok": true
+          },
+          "persisted": {
+            "runs": 0,
+            "checks": 0,
+            "requests": 0,
+            "successfulAudit": 0,
+            "epochs": 0
+          },
+          "denialAuditPersisted": true,
+          "transactionStartNotUsedForCurrentAuthorization": true
+        }
+      },
+      {
+        "name": "test_generation generation revoked after execution before COMMIT",
+        "status": "passed",
+        "evidence": {
+          "mode": "test_generation",
+          "grantKind": "generation",
+          "executedAt": "2026-10-27T07:39:40.499402+00:00",
+          "revokedAt": "2026-10-27 07:39:40.509244+00",
+          "databaseObserved": "2026-10-27 07:39:40.509877+00",
+          "checks": [
+            {
+              "position": 1,
+              "check": "selection_binding",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 2,
+              "check": "body_protocol",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 3,
+              "check": "input_bindings",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 4,
+              "check": "writer_authorization",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 5,
+              "check": "bundle_payload",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 6,
+              "check": "review_bytes",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 7,
+              "check": "author_rule",
+              "required": false,
+              "outcome": "unknown",
+              "code": "RULE_NOT_CHECKED"
+            }
+          ],
+          "commit": {
+            "ok": true,
+            "sqlstate": null,
+            "error": null
+          },
+          "checksAndHashesUnchanged": true,
+          "historical": true,
+          "current": false,
+          "writerDenied": true,
+          "persisted": {
+            "runs": 1,
+            "checks": 7,
+            "requests": 1,
+            "successfulAudit": 1,
+            "epochs": 1
+          }
+        }
+      },
+      {
+        "name": "test_generation context revoked after execution before COMMIT",
+        "status": "passed",
+        "evidence": {
+          "mode": "test_generation",
+          "grantKind": "context",
+          "executedAt": "2026-10-27T07:39:40.969653+00:00",
+          "revokedAt": "2026-10-27 07:39:40.979429+00",
+          "databaseObserved": "2026-10-27 07:39:40.980168+00",
+          "checks": [
+            {
+              "position": 1,
+              "check": "selection_binding",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 2,
+              "check": "body_protocol",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 3,
+              "check": "input_bindings",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 4,
+              "check": "writer_authorization",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 5,
+              "check": "bundle_payload",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 6,
+              "check": "review_bytes",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 7,
+              "check": "author_rule",
+              "required": false,
+              "outcome": "unknown",
+              "code": "RULE_NOT_CHECKED"
+            }
+          ],
+          "commit": {
+            "ok": true,
+            "sqlstate": null,
+            "error": null
+          },
+          "checksAndHashesUnchanged": true,
+          "historical": true,
+          "current": false,
+          "writerDenied": true,
+          "persisted": {
+            "runs": 1,
+            "checks": 7,
+            "requests": 1,
+            "successfulAudit": 1,
+            "epochs": 1
+          }
+        }
+      },
+      {
+        "name": "manual_input writing revoked after execution before COMMIT",
+        "status": "passed",
+        "evidence": {
+          "mode": "manual_input",
+          "grantKind": "writing",
+          "executedAt": "2026-10-27T07:39:41.380278+00:00",
+          "revokedAt": "2026-10-27 07:39:41.388685+00",
+          "databaseObserved": "2026-10-27 07:39:41.389379+00",
+          "checks": [
+            {
+              "position": 1,
+              "check": "selection_binding",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 2,
+              "check": "body_protocol",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 3,
+              "check": "input_bindings",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 4,
+              "check": "writer_authorization",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 5,
+              "check": "bundle_payload",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 6,
+              "check": "review_bytes",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 7,
+              "check": "author_rule",
+              "required": false,
+              "outcome": "unknown",
+              "code": "RULE_NOT_CHECKED"
+            }
+          ],
+          "commit": {
+            "ok": true,
+            "sqlstate": null,
+            "error": null
+          },
+          "checksAndHashesUnchanged": true,
+          "historical": true,
+          "current": false,
+          "writerDenied": true,
+          "persisted": {
+            "runs": 1,
+            "checks": 7,
+            "requests": 1,
+            "successfulAudit": 1,
+            "epochs": 1
+          }
+        }
+      },
+      {
+        "name": "manual_input context revoked after execution before COMMIT",
+        "status": "passed",
+        "evidence": {
+          "mode": "manual_input",
+          "grantKind": "context",
+          "executedAt": "2026-10-27T07:39:41.782307+00:00",
+          "revokedAt": "2026-10-27 07:39:41.790626+00",
+          "databaseObserved": "2026-10-27 07:39:41.791264+00",
+          "checks": [
+            {
+              "position": 1,
+              "check": "selection_binding",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 2,
+              "check": "body_protocol",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 3,
+              "check": "input_bindings",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 4,
+              "check": "writer_authorization",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 5,
+              "check": "bundle_payload",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 6,
+              "check": "review_bytes",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 7,
+              "check": "author_rule",
+              "required": false,
+              "outcome": "unknown",
+              "code": "RULE_NOT_CHECKED"
+            }
+          ],
+          "commit": {
+            "ok": true,
+            "sqlstate": null,
+            "error": null
+          },
+          "checksAndHashesUnchanged": true,
+          "historical": true,
+          "current": false,
+          "writerDenied": true,
+          "persisted": {
+            "runs": 1,
+            "checks": 7,
+            "requests": 1,
+            "successfulAudit": 1,
+            "epochs": 1
+          }
+        }
+      },
+      {
+        "name": "test_generation generation later revocation and replacement never restore approval",
+        "status": "passed",
+        "evidence": {
+          "historical": true,
+          "current": false,
+          "checksAndHashesUnchanged": true,
+          "reviewBytesUnchanged": true,
+          "originalApprovalPermanentlyInvalidated": true,
+          "oldApprovalReplayDenied": true,
+          "generationReplayDenied": true,
+          "replacementDoesNotRebindOriginal": true
+        }
+      },
+      {
+        "name": "test_generation context later revocation and replacement never restore approval",
+        "status": "passed",
+        "evidence": {
+          "historical": true,
+          "current": false,
+          "checksAndHashesUnchanged": true,
+          "reviewBytesUnchanged": true,
+          "originalApprovalPermanentlyInvalidated": true,
+          "oldApprovalReplayDenied": true,
+          "generationReplayDenied": true,
+          "replacementDoesNotRebindOriginal": true
+        }
+      },
+      {
+        "name": "response exists before expiry, admission after expiry preserves facts only",
+        "status": "passed",
+        "evidence": {
+          "deadline": "2026-10-27 07:39:44.632255+00",
+          "databaseObserved": "2026-10-27 07:39:44.643007+00",
+          "writerDenied": true,
+          "callSucceeded": true,
+          "responseAndHashPersisted": true,
+          "executionState": "input_rejected",
+          "candidatesBefore": 1,
+          "candidatesAfter": 1,
+          "noNewCandidate": true
+        }
+      }
+    ],
+    "logs": [
+      {
+        "event": "command_result",
+        "operation": "context-grant:create",
+        "outcome": "allowed",
+        "request_id": "2f5bb27c-e2dd-485f-88a2-d5891ca09634"
+      },
+      {
+        "event": "command_result",
+        "operation": "context:compile",
+        "outcome": "allowed",
+        "request_id": "2bf86ae4-8430-47b5-a01b-329400f8ba69"
+      },
+      {
+        "event": "command_result",
+        "operation": "generation-grant:create",
+        "outcome": "allowed",
+        "request_id": "35263f6a-b5d6-41e5-afc5-c04bf18d7562"
+      },
+      {
+        "event": "command_result",
+        "operation": "test-workflow:create",
+        "outcome": "allowed",
+        "request_id": "823852e9-3832-4140-9f54-a6d633ab9804"
+      },
+      {
+        "event": "command_result",
+        "operation": "generation:execute",
+        "outcome": "allowed",
+        "request_id": "408b2ca1-1a4f-4023-8041-bbfc4d231c3f"
+      },
+      {
+        "event": "command_result",
+        "operation": "workflow:read",
+        "outcome": "allowed",
+        "request_id": "7a8efa48-402c-45df-a6f1-a1cde301f49a"
+      },
+      {
+        "event": "command_result",
+        "operation": "candidate:select",
+        "outcome": "allowed",
+        "request_id": "bf8f7d05-8398-43aa-8ae8-048f50d58aea"
+      },
+      {
+        "event": "command_result",
+        "operation": "validation-policy:publish",
+        "outcome": "allowed",
+        "request_id": "309ca460-30b4-44fc-8b88-9a911b6d9256"
+      },
+      {
+        "event": "command_result",
+        "operation": "validation:current",
+        "outcome": "denied",
+        "request_id": "2c72fe52-fcec-4ccd-9777-ec59c2007bfa"
+      },
+      {
+        "event": "command_result",
+        "operation": "workflow:read",
+        "outcome": "denied",
+        "request_id": "aca0ef9d-3c7f-4316-9b1b-03840732d643"
+      },
+      {
+        "event": "command_result",
+        "operation": "context-grant:create",
+        "outcome": "allowed",
+        "request_id": "874428a8-2350-44c6-814a-6b08f6b52d8b"
+      },
+      {
+        "event": "command_result",
+        "operation": "context:compile",
+        "outcome": "allowed",
+        "request_id": "299006c8-22cd-4f13-9346-843099e881f9"
+      },
+      {
+        "event": "command_result",
+        "operation": "writing-grant:create",
+        "outcome": "allowed",
+        "request_id": "d1e538a6-0e8e-4e36-8fcf-f3903b462d6e"
+      },
+      {
+        "event": "command_result",
+        "operation": "workflow:create",
+        "outcome": "allowed",
+        "request_id": "c7f9d598-1136-4057-8637-f0786d46a95a"
+      },
+      {
+        "event": "command_result",
+        "operation": "candidate:input",
+        "outcome": "allowed",
+        "request_id": "2ac8d69b-7cf6-41a9-ac56-102d2a45f0ee"
+      },
+      {
+        "event": "command_result",
+        "operation": "candidate:select",
+        "outcome": "allowed",
+        "request_id": "79fc5fe0-0e55-494d-b973-ce4f1202825c"
+      },
+      {
+        "event": "command_result",
+        "operation": "validation-policy:publish",
+        "outcome": "allowed",
+        "request_id": "acce5604-7935-4b46-9c2b-c54ba968e428"
+      },
+      {
+        "event": "command_result",
+        "operation": "validation:current",
+        "outcome": "denied",
+        "request_id": "1d8fb4b3-4ab2-411f-b946-53a985dfa13c"
+      },
+      {
+        "event": "command_result",
+        "operation": "workflow:read",
+        "outcome": "denied",
+        "request_id": "c52dd13d-e2ea-451d-b718-6335a5c959dd"
+      },
+      {
+        "event": "command_result",
+        "operation": "context-grant:create",
+        "outcome": "allowed",
+        "request_id": "f1668984-8580-4274-8f3f-6899b4a78df5"
+      },
+      {
+        "event": "command_result",
+        "operation": "context:compile",
+        "outcome": "allowed",
+        "request_id": "1a634097-b37b-41bb-a2a2-8cb6233a6769"
+      },
+      {
+        "event": "command_result",
+        "operation": "generation-grant:create",
+        "outcome": "allowed",
+        "request_id": "f3f901ab-b110-4a03-833f-d00cc5f4c139"
+      },
+      {
+        "event": "command_result",
+        "operation": "test-workflow:create",
+        "outcome": "allowed",
+        "request_id": "f1855ce2-5d52-417f-b350-d4b363ab2aae"
+      },
+      {
+        "event": "command_result",
+        "operation": "generation:execute",
+        "outcome": "allowed",
+        "request_id": "737d7911-5a71-40c2-ae85-14062d6e967e"
+      },
+      {
+        "event": "command_result",
+        "operation": "workflow:read",
+        "outcome": "allowed",
+        "request_id": "69a495d8-969b-400e-8fa6-221f20fd03c1"
+      },
+      {
+        "event": "command_result",
+        "operation": "candidate:select",
+        "outcome": "allowed",
+        "request_id": "e1b97264-1e87-4c03-965c-02f0ba9db762"
+      },
+      {
+        "event": "command_result",
+        "operation": "validation-policy:publish",
+        "outcome": "allowed",
+        "request_id": "08da7c16-10d8-4d14-82d2-7f34602f64e8"
+      },
+      {
+        "event": "command_result",
+        "operation": "context-grant:create",
+        "outcome": "allowed",
+        "request_id": "f8e7455b-c250-42fa-b234-77b2f136303d"
+      },
+      {
+        "event": "command_result",
+        "operation": "context:compile",
+        "outcome": "allowed",
+        "request_id": "fc429dbe-5c09-4de9-98e1-72732250595f"
+      },
+      {
+        "event": "command_result",
+        "operation": "writing-grant:create",
+        "outcome": "allowed",
+        "request_id": "adf453df-cfea-4a20-9645-c45329ffa686"
+      },
+      {
+        "event": "command_result",
+        "operation": "workflow:create",
+        "outcome": "allowed",
+        "request_id": "5cfaa860-8dd6-4706-9816-5f77f641b783"
+      },
+      {
+        "event": "command_result",
+        "operation": "candidate:input",
+        "outcome": "allowed",
+        "request_id": "45e99593-0a34-43f0-80c8-8a6640f7ea60"
+      },
+      {
+        "event": "command_result",
+        "operation": "candidate:select",
+        "outcome": "allowed",
+        "request_id": "240b20fb-4a69-4b2c-86af-e79a34825561"
+      },
+      {
+        "event": "command_result",
+        "operation": "validation-policy:publish",
+        "outcome": "allowed",
+        "request_id": "17d83798-556d-4b07-8489-c1df975b1c1d"
+      },
+      {
+        "event": "command_result",
+        "operation": "context-grant:create",
+        "outcome": "allowed",
+        "request_id": "584991f0-ae4e-42e4-af46-f0f8a3c49d46"
+      },
+      {
+        "event": "command_result",
+        "operation": "context:compile",
+        "outcome": "allowed",
+        "request_id": "b319017a-2987-4b2a-829f-40b880ca3e8f"
+      },
+      {
+        "event": "command_result",
+        "operation": "generation-grant:create",
+        "outcome": "allowed",
+        "request_id": "6989e1be-9428-4114-9979-41845a0a5606"
+      },
+      {
+        "event": "command_result",
+        "operation": "test-workflow:create",
+        "outcome": "allowed",
+        "request_id": "f3d591eb-571a-4d34-8de1-13bd22554c85"
+      },
+      {
+        "event": "command_result",
+        "operation": "generation:execute",
+        "outcome": "allowed",
+        "request_id": "f8688fc8-a119-407a-a6f3-a8ee362c88d3"
+      },
+      {
+        "event": "command_result",
+        "operation": "workflow:read",
+        "outcome": "allowed",
+        "request_id": "ca5e6d8e-89e4-4516-a833-3d703d8e83bb"
+      },
+      {
+        "event": "command_result",
+        "operation": "candidate:select",
+        "outcome": "allowed",
+        "request_id": "1e88dac5-21b0-4861-8614-55dec94b71d4"
+      },
+      {
+        "event": "command_result",
+        "operation": "validation-policy:publish",
+        "outcome": "allowed",
+        "request_id": "f270fc05-51d4-4b91-b55c-6bf73420a3db"
+      },
+      {
+        "event": "command_result",
+        "operation": "workflow:read",
+        "outcome": "denied",
+        "request_id": "b98e7f24-4203-4d95-9194-f9d36e79933d"
+      },
+      {
+        "event": "command_result",
+        "operation": "context-grant:create",
+        "outcome": "allowed",
+        "request_id": "af07ad2c-9c38-4af5-b7e7-314d4f568f7f"
+      },
+      {
+        "event": "command_result",
+        "operation": "context:compile",
+        "outcome": "allowed",
+        "request_id": "ad72c756-9cbf-4c11-afaa-8ee3c7624da7"
+      },
+      {
+        "event": "command_result",
+        "operation": "generation-grant:create",
+        "outcome": "allowed",
+        "request_id": "b8de21ba-c39d-411f-b8dc-ebb2a17d307b"
+      },
+      {
+        "event": "command_result",
+        "operation": "test-workflow:create",
+        "outcome": "allowed",
+        "request_id": "4ba832e5-a2ad-4ba2-ada5-9d43c65cd4b8"
+      },
+      {
+        "event": "command_result",
+        "operation": "generation:execute",
+        "outcome": "allowed",
+        "request_id": "b56d577b-8224-4b35-85a0-6cb7461a9d06"
+      },
+      {
+        "event": "command_result",
+        "operation": "workflow:read",
+        "outcome": "allowed",
+        "request_id": "069b7ffc-12df-4630-ba76-60c66118d4b8"
+      },
+      {
+        "event": "command_result",
+        "operation": "candidate:select",
+        "outcome": "allowed",
+        "request_id": "61a71408-6cfa-495b-9a16-9ea9118b6c29"
+      },
+      {
+        "event": "command_result",
+        "operation": "validation-policy:publish",
+        "outcome": "allowed",
+        "request_id": "af59265e-ee6e-41e1-8697-c7f4ce51a8f4"
+      },
+      {
+        "event": "command_result",
+        "operation": "workflow:read",
+        "outcome": "denied",
+        "request_id": "6bf3ec4b-9c7c-4773-83ca-dc6fd2287c0b"
+      },
+      {
+        "event": "command_result",
+        "operation": "context-grant:create",
+        "outcome": "allowed",
+        "request_id": "2a1108da-7b02-4e69-860d-2d27cce2df6e"
+      },
+      {
+        "event": "command_result",
+        "operation": "context:compile",
+        "outcome": "allowed",
+        "request_id": "5a6bb67a-fb17-4230-aafe-dccf801e9b83"
+      },
+      {
+        "event": "command_result",
+        "operation": "writing-grant:create",
+        "outcome": "allowed",
+        "request_id": "daa46e47-2233-4f29-baa7-d3f9a8160119"
+      },
+      {
+        "event": "command_result",
+        "operation": "workflow:create",
+        "outcome": "allowed",
+        "request_id": "93aa9bd6-e0a9-48d9-8a7e-18f0eafe9e5f"
+      },
+      {
+        "event": "command_result",
+        "operation": "candidate:input",
+        "outcome": "allowed",
+        "request_id": "6361b1d6-d1d6-49a9-9b92-9c0cd7990d21"
+      },
+      {
+        "event": "command_result",
+        "operation": "candidate:select",
+        "outcome": "allowed",
+        "request_id": "2e4671d8-3d9e-4efa-9b96-d9df265ce819"
+      },
+      {
+        "event": "command_result",
+        "operation": "validation-policy:publish",
+        "outcome": "allowed",
+        "request_id": "5a756e9b-c0de-48a3-b740-372a21a65301"
+      },
+      {
+        "event": "command_result",
+        "operation": "workflow:read",
+        "outcome": "denied",
+        "request_id": "c3fc2b86-02cd-44d5-a60f-7778803fcaee"
+      },
+      {
+        "event": "command_result",
+        "operation": "context-grant:create",
+        "outcome": "allowed",
+        "request_id": "ca6ed0f4-2322-4475-9dc3-d58d9a913b67"
+      },
+      {
+        "event": "command_result",
+        "operation": "context:compile",
+        "outcome": "allowed",
+        "request_id": "446a539f-3d19-4ff8-9beb-e70af412801e"
+      },
+      {
+        "event": "command_result",
+        "operation": "writing-grant:create",
+        "outcome": "allowed",
+        "request_id": "ff189762-ac9e-42bd-b7cb-7f045bfa3977"
+      },
+      {
+        "event": "command_result",
+        "operation": "workflow:create",
+        "outcome": "allowed",
+        "request_id": "8e2c6da2-c817-4195-99a7-08ffabf31feb"
+      },
+      {
+        "event": "command_result",
+        "operation": "candidate:input",
+        "outcome": "allowed",
+        "request_id": "1996863c-48da-45b1-8be1-dcbc897d31a8"
+      },
+      {
+        "event": "command_result",
+        "operation": "candidate:select",
+        "outcome": "allowed",
+        "request_id": "09363e57-d497-4a7e-97ef-bed4819de89c"
+      },
+      {
+        "event": "command_result",
+        "operation": "validation-policy:publish",
+        "outcome": "allowed",
+        "request_id": "1aa61996-deac-4229-9fdf-9b6f3eb790c2"
+      },
+      {
+        "event": "command_result",
+        "operation": "workflow:read",
+        "outcome": "denied",
+        "request_id": "7ef0fbe8-c09c-4e30-a09c-a472639b4535"
+      },
+      {
+        "event": "command_result",
+        "operation": "context-grant:create",
+        "outcome": "allowed",
+        "request_id": "6bb0f861-85a4-404b-9056-b7d4502c648c"
+      },
+      {
+        "event": "command_result",
+        "operation": "context:compile",
+        "outcome": "allowed",
+        "request_id": "03277793-7292-47a0-9389-5c50e4da390b"
+      },
+      {
+        "event": "command_result",
+        "operation": "generation-grant:create",
+        "outcome": "allowed",
+        "request_id": "46a4fb09-0dc9-49ef-ac05-d1459fae6f01"
+      },
+      {
+        "event": "command_result",
+        "operation": "test-workflow:create",
+        "outcome": "allowed",
+        "request_id": "1b9e160e-2d29-46d3-81f2-9ae22878442d"
+      },
+      {
+        "event": "command_result",
+        "operation": "generation:execute",
+        "outcome": "allowed",
+        "request_id": "5d51a224-3717-4a93-9991-4c88ee395ba2"
+      },
+      {
+        "event": "command_result",
+        "operation": "workflow:read",
+        "outcome": "allowed",
+        "request_id": "cf4009e8-0d4f-4767-82e8-7b55e86ab54c"
+      },
+      {
+        "event": "command_result",
+        "operation": "candidate:select",
+        "outcome": "allowed",
+        "request_id": "d89d30b1-071b-448c-9fb2-c3ac7f9f90f2"
+      },
+      {
+        "event": "command_result",
+        "operation": "validation-policy:publish",
+        "outcome": "allowed",
+        "request_id": "107daba3-9a61-451e-84d6-45c434c3646b"
+      },
+      {
+        "event": "command_result",
+        "operation": "validation:run",
+        "outcome": "allowed",
+        "request_id": "08eb74d3-1e46-4756-8915-4df03b32ff47"
+      },
+      {
+        "event": "command_result",
+        "operation": "approval-policy:publish",
+        "outcome": "allowed",
+        "request_id": "ba9e9629-4d39-4dc7-a95c-f78539304b1b"
+      },
+      {
+        "event": "command_result",
+        "operation": "approval:review",
+        "outcome": "allowed",
+        "request_id": "8f49a3ac-2532-49d6-94f4-1714dffb02b5"
+      },
+      {
+        "event": "command_result",
+        "operation": "approval:approve",
+        "outcome": "allowed",
+        "request_id": "b4fefd98-726e-4557-964b-e65810e912e6"
+      },
+      {
+        "event": "command_result",
+        "operation": "generation-grant:create",
+        "outcome": "allowed",
+        "request_id": "ee0119a8-fbde-4924-a75a-3f6b9c7df45d"
+      },
+      {
+        "event": "command_result",
+        "operation": "approval:current",
+        "outcome": "denied",
+        "request_id": "8433bb6d-90ff-4301-a9ee-59cf574f6e69"
+      },
+      {
+        "event": "command_result",
+        "operation": "approval:approve",
+        "outcome": "denied",
+        "request_id": "cd326f95-b5cf-4473-8a82-554f54a05d1d"
+      },
+      {
+        "event": "command_result",
+        "operation": "generation:execute",
+        "outcome": "denied",
+        "request_id": "d8f14c1e-e7fb-4c7c-9c7d-58a7adf56421"
+      },
+      {
+        "event": "command_result",
+        "operation": "context-grant:create",
+        "outcome": "allowed",
+        "request_id": "7fa2bba3-cb97-43a1-b925-2f195373e143"
+      },
+      {
+        "event": "command_result",
+        "operation": "context:compile",
+        "outcome": "allowed",
+        "request_id": "9a8568f1-00a0-4807-b12a-0271974e43d9"
+      },
+      {
+        "event": "command_result",
+        "operation": "generation-grant:create",
+        "outcome": "allowed",
+        "request_id": "f5bfe61c-b49c-489c-9859-9c14151d88ca"
+      },
+      {
+        "event": "command_result",
+        "operation": "test-workflow:create",
+        "outcome": "allowed",
+        "request_id": "a2b84239-6a32-44b0-b5ce-4150c0348d49"
+      },
+      {
+        "event": "command_result",
+        "operation": "generation:execute",
+        "outcome": "allowed",
+        "request_id": "8284cedb-9a27-4a93-81b1-90e4c0da15a1"
+      },
+      {
+        "event": "command_result",
+        "operation": "workflow:read",
+        "outcome": "allowed",
+        "request_id": "c8281365-824f-4af5-9edb-764dafb823cb"
+      },
+      {
+        "event": "command_result",
+        "operation": "candidate:select",
+        "outcome": "allowed",
+        "request_id": "5bc3341c-3888-4b91-980d-d1a26423945f"
+      },
+      {
+        "event": "command_result",
+        "operation": "validation-policy:publish",
+        "outcome": "allowed",
+        "request_id": "73129f27-b07e-47be-9ec0-c1f0ed27dd4d"
+      },
+      {
+        "event": "command_result",
+        "operation": "validation:run",
+        "outcome": "allowed",
+        "request_id": "eb22a531-01c1-4f3d-b053-17e92155c6a9"
+      },
+      {
+        "event": "command_result",
+        "operation": "approval-policy:publish",
+        "outcome": "allowed",
+        "request_id": "ef1a0a47-7b07-461c-8386-a6692c257870"
+      },
+      {
+        "event": "command_result",
+        "operation": "approval:review",
+        "outcome": "allowed",
+        "request_id": "0bb9881d-fd36-4df8-b26e-a04b5fbb9918"
+      },
+      {
+        "event": "command_result",
+        "operation": "approval:approve",
+        "outcome": "allowed",
+        "request_id": "05adb49a-d257-497f-ae7f-7bf758dbe65e"
+      },
+      {
+        "event": "command_result",
+        "operation": "context-grant:create",
+        "outcome": "allowed",
+        "request_id": "7df71d28-2e37-409e-9990-b87a47e85b6d"
+      },
+      {
+        "event": "command_result",
+        "operation": "approval:current",
+        "outcome": "denied",
+        "request_id": "3ce57c34-77a7-4052-980c-7c91ac2a5b3f"
+      },
+      {
+        "event": "command_result",
+        "operation": "approval:approve",
+        "outcome": "denied",
+        "request_id": "75cacf9f-ccdd-4433-8b06-625e641f6561"
+      },
+      {
+        "event": "command_result",
+        "operation": "generation:execute",
+        "outcome": "denied",
+        "request_id": "f4f33ded-bc2e-4e04-91dd-2748ff871ffe"
+      },
+      {
+        "event": "command_result",
+        "operation": "context-grant:create",
+        "outcome": "allowed",
+        "request_id": "633b373d-1d87-4d2c-8cd9-e81289134eea"
+      },
+      {
+        "event": "command_result",
+        "operation": "context:compile",
+        "outcome": "allowed",
+        "request_id": "d5aacfbf-18b1-4524-86b3-73e722850eb0"
+      },
+      {
+        "event": "command_result",
+        "operation": "generation-grant:create",
+        "outcome": "allowed",
+        "request_id": "5eb9716d-4d31-42c7-97dc-bf1a6289e472"
+      },
+      {
+        "event": "command_result",
+        "operation": "test-workflow:create",
+        "outcome": "allowed",
+        "request_id": "610a75b7-2491-4633-bb85-13b2b3f143ed"
+      },
+      {
+        "event": "command_result",
+        "operation": "generation:execute",
+        "outcome": "allowed",
+        "request_id": "7ece8a91-5bf6-4591-9438-e1c60a838740"
+      },
+      {
+        "event": "command_result",
+        "operation": "workflow:read",
+        "outcome": "allowed",
+        "request_id": "c1021c72-82c2-470d-8b04-4244c647eff0"
+      },
+      {
+        "event": "command_result",
+        "operation": "candidate:select",
+        "outcome": "allowed",
+        "request_id": "c189b702-9a16-498b-b3d8-64233b9e71f8"
+      },
+      {
+        "event": "command_result",
+        "operation": "validation-policy:publish",
+        "outcome": "allowed",
+        "request_id": "e2e8c188-5039-4fb5-baba-7f704e7c1876"
+      },
+      {
+        "event": "command_result",
+        "operation": "generation:execute",
+        "outcome": "denied",
+        "request_id": "e6cb8679-3c46-4042-8af5-89b27d4e8578"
+      }
+    ],
+    "errors": [
+      {
+        "ok": false,
+        "error": "VALIDATION_STALE"
+      },
+      {
+        "ok": false,
+        "error": "ACCESS_DENIED"
+      },
+      {
+        "ok": false,
+        "error": "VALIDATION_STALE"
+      },
+      {
+        "ok": false,
+        "error": "ACCESS_DENIED"
+      },
+      {
+        "ok": false,
+        "error": "ACCESS_DENIED"
+      },
+      {
+        "ok": false,
+        "error": "ACCESS_DENIED"
+      },
+      {
+        "ok": false,
+        "error": "ACCESS_DENIED"
+      },
+      {
+        "ok": false,
+        "error": "ACCESS_DENIED"
+      },
+      {
+        "ok": false,
+        "error": "APPROVAL_UNAVAILABLE"
+      },
+      {
+        "ok": false,
+        "error": "APPROVAL_UNAVAILABLE"
+      },
+      {
+        "ok": false,
+        "error": "ACCESS_DENIED"
+      },
+      {
+        "ok": false,
+        "error": "APPROVAL_UNAVAILABLE"
+      },
+      {
+        "ok": false,
+        "error": "APPROVAL_UNAVAILABLE"
+      },
+      {
+        "ok": false,
+        "error": "ACCESS_DENIED"
+      },
+      {
+        "ok": false,
+        "error": "ACCESS_DENIED"
+      }
+    ],
+    "sameBodyAcrossModes": true,
+    "beforeOnly": false
+  },
+  "leaks": 0,
+  "valid": true,
+  "containerCleanup": true,
+  "temporaryCleanup": true,
+  "ok": true
+}

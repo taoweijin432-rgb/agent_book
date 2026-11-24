@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-27",
+  "localDeploymentConfigurations": 0,
+  "runtimeCredentialEnvironmentKeys": 0,
+  "projectNamedContainersBeforeExperiment": 0,
+  "postgresImageContainersBeforeExperiment": 0,
+  "otherContainersObservedReadOnly": 5,
+  "existingDatabasesConnected": false,
+  "runtimeInitiallyStopped": true,
+  "runtimeStartedForAuthorizedExperiments": true,
+  "otherContainersModifiedOrRemoved": false,
+  "externalDeploymentAbsenceProven": false,
+  "scope": "No non-verification deployment found in inspected local repository/configuration/container evidence; remote or externally managed deployments were not inspected. Editing 007 does not update an already-installed database; any such deployment needs a separately reviewed forward repair."
+}

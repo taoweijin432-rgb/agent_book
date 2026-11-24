@@ -1,0 +1,12 @@
+protected_file_count=87
+before_sha256_format=valid
+after_sha256_format=valid
+duplicate_paths=0
+missing_or_extra_paths=0
+before_after_identical=true
+docs_count=16
+existing_prototype_file_count=69
+root_archive_count=2
+excluded=node_modules,.DS_Store,.test-results.json
+gitignore_expected_entry_count=1
+gitignore_only_exact_append=true

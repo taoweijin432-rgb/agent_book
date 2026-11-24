@@ -1,0 +1,63 @@
+# OS and editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Environment and secrets
+.env
+.env.*
+*.env
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Dependencies and virtual environments
+node_modules/
+.pnpm-store/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Build, test, and tool caches
+build/
+dist/
+out/
+coverage/
+.cache/
+.nyc_output/
+.pytest_cache/
+
+# Logs and local runtime files
+*.log
+logs/
+tmp/
+tmp-data/
+
+# Local database data and backups
+.pgdata/
+postgres-data/
+database-data/
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+*.backup
+
+prototypes/time-interval-constraints/.test-results.json
+prototypes/evidence-candidate-constraints/.test-results.json
+prototypes/evidence-canon-constraints/.test-results.json
+
+# Evidence Author Design prototype transient result
+prototypes/evidence-design-constraints/.test-results.json
+
+prototypes/evidence-tool-constraints/.test-results.json
+prototypes/evidence-unified-constraints/.test-results.json
+prototypes/projection-attempt-lifecycle/.test-results.json
+prototypes/projection-checkpoint-publication/.test-results.json

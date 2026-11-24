@@ -1,0 +1,17 @@
+prototypes/projection-checkpoint-publication/README.md
+prototypes/projection-checkpoint-publication/migrations/001_projection_checkpoint_fixture.mjs
+prototypes/projection-checkpoint-publication/package.json
+prototypes/projection-checkpoint-publication/pnpm-lock.yaml
+prototypes/projection-checkpoint-publication/scripts/run-prototype.mjs
+prototypes/projection-checkpoint-publication/test/projection-checkpoint.test.mjs
+prototypes/projection-checkpoint-publication/verification/file-manifest.txt
+prototypes/projection-checkpoint-publication/verification/git-status-after.txt
+prototypes/projection-checkpoint-publication/verification/git-status-before.txt
+prototypes/projection-checkpoint-publication/verification/gitignore-after.sha256
+prototypes/projection-checkpoint-publication/verification/gitignore-before.sha256
+prototypes/projection-checkpoint-publication/verification/gitignore-before.txt
+prototypes/projection-checkpoint-publication/verification/hash-validation.txt
+prototypes/projection-checkpoint-publication/verification/protected-sha256-after.txt
+prototypes/projection-checkpoint-publication/verification/protected-sha256-before.txt
+prototypes/projection-checkpoint-publication/verification/runner-result.md
+prototypes/projection-checkpoint-publication/verification/verify-protected.mjs

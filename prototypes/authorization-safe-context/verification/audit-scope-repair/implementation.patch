@@ -1,0 +1,195 @@
+--- before/migrations/001_authorization_safe_context.mjs
++++ after/migrations/001_authorization_safe_context.mjs
+@@ -254,14 +254,19 @@
+     RETURN jsonb_build_object('ok',true,'status',CASE WHEN v.result_id IS NULL THEN 'NOT_CHECKED' ELSE 'REVIEW_VIEWPOINT' END,
+       'message',CASE WHEN v.result_id IS NULL THEN '尚无校验反馈。' ELSE '请复核候选的视角边界，仅使用本场景已提供的信息。' END);
+   END;`);
++  // 审计范围独立核对被引用资源；历史追溯不要求 active、当前版本或当前 Design。
++  fn('audit_resource_in_scope','r resource,s data_scope','boolean',`SELECT coalesce(r.resource_id IS NOT NULL AND r.project_id=s.project_id
++    AND (r.scene_id IS NULL OR s.scene_id IS NULL OR r.scene_id=s.scene_id)
++    AND r.canon_watermark<=s.max_canon_watermark AND r.resource_class=ANY(s.resource_classes)
++    AND (r.proposition_key IS NULL OR r.proposition_key=ANY(s.allowed_propositions)),false)`,'sql');
+   fn('api_read_audit','r jsonb','jsonb',`DECLARE auth jsonb;t scene_task_version;s data_scope;BEGIN
+     IF NOT exact_request(r,ARRAY['task_id']) THEN RETURN deny('read_audit',known_task(r),'invalid_request');END IF;
+     auth:=authorize(r->>'task_id','read_audit');IF auth IS NULL THEN RETURN deny('read_audit',known_task(r));END IF;SELECT * INTO t FROM scene_task_version WHERE task_id=r->>'task_id';
+     SELECT * INTO s FROM data_scope WHERE scope_id=auth->>'scope';
+     PERFORM audit(caller(),'read_audit',t.task_id,auth->>'scope',auth->>'grant','allow','restricted_audit_reader');
+     RETURN jsonb_build_object('ok',true,'events',(SELECT coalesce(jsonb_agg(to_jsonb(a) ORDER BY audit_id),'[]') FROM access_audit_record a JOIN scene_task_version st USING(task_id) WHERE st.project_id=s.project_id AND st.canon_watermark<=s.max_canon_watermark AND (s.scene_id IS NULL OR st.scene_id=s.scene_id) AND (s.viewpoint_id IS NULL OR st.viewpoint_id=s.viewpoint_id)
+-        AND NOT EXISTS(SELECT 1 FROM resource rr WHERE rr.resource_id=a.restricted_resource_id AND (rr.canon_watermark>s.max_canon_watermark OR NOT(rr.resource_class=ANY(s.resource_classes)) OR rr.proposition_key IS NOT NULL AND NOT(rr.proposition_key=ANY(s.allowed_propositions))))),
+-      'source_refs',(SELECT coalesce(jsonb_agg(to_jsonb(sr) ORDER BY reference_id),'[]') FROM context_source_reference sr JOIN context_item i USING(item_id) JOIN context_bundle b USING(bundle_id) JOIN scene_task_version st USING(task_id) JOIN resource rr ON rr.resource_id=sr.resource_id WHERE st.project_id=t.project_id AND st.canon_watermark<=s.max_canon_watermark AND (s.scene_id IS NULL OR st.scene_id=s.scene_id) AND (s.viewpoint_id IS NULL OR st.viewpoint_id=s.viewpoint_id) AND rr.canon_watermark<=s.max_canon_watermark AND rr.resource_class=ANY(s.resource_classes) AND (rr.proposition_key IS NULL OR rr.proposition_key=ANY(s.allowed_propositions))));
++        AND (a.restricted_resource_id IS NULL OR EXISTS(SELECT 1 FROM resource rr WHERE rr.resource_id=a.restricted_resource_id AND audit_resource_in_scope(rr,s)))),
++      'source_refs',(SELECT coalesce(jsonb_agg(to_jsonb(sr) ORDER BY reference_id),'[]') FROM context_source_reference sr JOIN context_item i USING(item_id) JOIN context_bundle b USING(bundle_id) JOIN scene_task_version st USING(task_id) JOIN resource rr ON rr.resource_id=sr.resource_id WHERE st.project_id=t.project_id AND st.canon_watermark<=s.max_canon_watermark AND (s.scene_id IS NULL OR st.scene_id=s.scene_id) AND (s.viewpoint_id IS NULL OR st.viewpoint_id=s.viewpoint_id) AND audit_resource_in_scope(rr,s)));
+   END;`);
+   fn('api_revoke_grant','r jsonb','jsonb',`DECLARE g capability_grant;s data_scope;t text;auth jsonb;BEGIN
+     IF NOT exact_request(r,ARRAY['grant_id']) THEN RETURN deny('manage_grant',NULL,'invalid_request');END IF;
+--- before/test/authorization-safe-context.test.mjs
++++ after/test/authorization-safe-context.test.mjs
+@@ -156,6 +156,7 @@
+   await sub(t,'策略升级拒绝旧包，客户端不能自选旧策略，新策略生成新包',async()=>{await using('admin',c=>insert(c,'policy_event',{policy_version:'safe-context-v2'}));await expectedDeny(api('writerA','read_context',{bundle_id:ordinaryBundle.bundle_id}));await expectedDeny(api('writerA','read_context',{bundle_id:ordinaryBundle.bundle_id,policy_version:'safe-context-v1'}));const next=await compile();safe(next.payload.policy_version==='safe-context-v2','current_policy_only');const row=await using('admin',async c=>(await c.query(`SELECT payload FROM ${q('context_bundle')} WHERE bundle_id=$1`,[ordinaryBundle.bundle_id])).rows[0]);equal(row.payload,ordinaryBundle.payload,'policy_change_does_not_rewrite_old');return 'v1_stored_immutable; current_v2_new_bundle; caller_policy_override_denied';});
+   await sub(t,'未知策略不可判定时拒绝',async()=>{const before=await counts();try{await using('admin',c=>insert(c,'policy_event',{policy_version:'unrecognized-policy'}));await expectedDeny(api('writerA','compile_context',{task_id:task.writerA}));equal(await counts(),before,'unknown_policy_no_bundle');}finally{await using('admin',c=>insert(c,'policy_event',{policy_version:'safe-context-v2'}));}return 'unknown_policy_default_deny';});
+   await sub(t,'预算不足不能裁掉必要安全约束后继续',async()=>{const before=await counts();await expectedDeny(api('writerA','compile_context',{task_id:task.budget}));equal(await counts(),before,'budget_failure_no_partial_bundle');return 'mandatory_guard_preserved_or_entire_compile_denied';});
++  await auditScopeRegressions(t);
+ });
+ 
+ scenario('D 默认日志、错误与拒绝审计',async t=>{
+@@ -183,3 +184,98 @@
+   await sub(t,'全部辅助函数关闭 PUBLIC 执行权且受控所有者固定 search_path',async()=>using('admin',async c=>{const funcs=(await c.query(`SELECT p.oid,p.proname,p.prosecdef,p.proconfig,r.rolname AS owner,has_function_privilege($2,p.oid,'EXECUTE') AS writer_execute,EXISTS(SELECT 1 FROM aclexplode(p.proacl) acl WHERE acl.grantee=0 AND acl.privilege_type='EXECUTE') AS public_execute FROM pg_catalog.pg_proc p JOIN pg_catalog.pg_namespace n ON n.oid=p.pronamespace JOIN pg_catalog.pg_roles r ON r.oid=p.proowner WHERE n.nspname=$1`,[S,`${prefix}_writera`])).rows;const allowed=new Set(['api_compile_context','api_get_context','api_create_generation','api_write_candidate','api_validation_feedback']);for(const f of funcs){safe(f.owner===`${prefix}_owner`&&f.prosecdef,'controlled_definer_owner');safe(!f.public_execute,'no_public_execute');safe(f.writer_execute===allowed.has(f.proname),'no_helper_bypass');equal(f.proconfig,[`search_path=pg_catalog, ${S}, pg_temp`],'fixed_safe_search_path');safe(!f.proname.startsWith('fixture_fault'),'fault_function_cleanup');}const disabled=(await c.query(`SELECT count(*)::int AS n FROM pg_catalog.pg_trigger t JOIN pg_catalog.pg_class cl ON cl.oid=t.tgrelid JOIN pg_catalog.pg_namespace n ON n.oid=cl.relnamespace WHERE n.nspname=$1 AND t.tgenabled='D'`,[S])).rows[0].n;safe(disabled===0,'no_business_trigger_disabled');return JSON.stringify({controlledFunctions:funcs.length,publicExecute:0,noHelperBypass:true,disabledTriggers:disabled});}));
+   await sub(t,'最终模型通道/默认日志/Trace/导出再次全量泄密扫描',async()=>{for(const [name,value] of Object.entries({model:gateway.modelChannels,logs:gateway.logs,trace:gateway.traces,evaluation:gateway.exportEvaluation(),testEvidence:subscenarios}))scan(value,name);const {spawnSync}=await import('node:child_process');const dbLogs=spawnSync('docker',['logs',process.env.PROTOTYPE_CONTAINER],{encoding:'utf8',stdio:['ignore','pipe','pipe']});safe(dbLogs.status===0,'final_database_log_read');scan((dbLogs.stdout??'')+(dbLogs.stderr??''),'final_database_logs_including_faults');return JSON.stringify({sensitiveMarkers:markers.length,modelResponses:gateway.modelChannels.length,defaultLogs:gateway.logs.length,leaks:0,scope:'database_and_tool_boundary_not_natural_language_inference'});});
+ });
++
++// 本轮只增加审计读取回归；原五组 109 个子场景和运行器保持。
++async function auditScopeFixture(){
++  const handle='auditScoped';const login=`${prefix}_auditscoped`,password=randomBytes(24).toString('hex');
++  const parsed=new URL(url);parsed.username=login;parsed.password=password;
++  credentials.set(handle,{config:{connectionString:parsed.toString(),connectionTimeoutMillis:5000},audience:'restricted'});
++  let scopedScope;let other;let historical;let projectLevel;
++  await using('admin',async c=>{
++    await c.query(`CREATE ROLE ${login} LOGIN PASSWORD '${password}' NOSUPERUSER NOBYPASSRLS NOCREATEDB NOCREATEROLE NOINHERIT`);
++    await c.query(`GRANT CONNECT ON DATABASE authorization_safe_context TO ${login};GRANT USAGE ON SCHEMA ${S} TO ${login};GRANT EXECUTE ON FUNCTION ${q('api_read_audit')}(jsonb) TO ${login}`);
++    await insert(c,'actor_principal',{actor_id:handle,db_login:login,kind:'auditor',status:'active'});await insert(c,'authorization_gate',{actor_id:handle});
++    scopedScope=await createScope(c,handle,base.A,{scene_id:base.A.scene,viewpoint_id:base.A.view,max_canon_watermark:10,resource_classes:['public','narrative'],
++      allowed_propositions:['known_hidden','reader_only','negative','missing','both','unmapped','scope_blocked']});
++    await grant(c,handle,'read_audit',scopedScope);
++    const otherBase={...base.A,scene:'scene_a_audit_other'};await insert(c,'scene',{scene_id:otherBase.scene,project_id:base.A.project});
++    other=await resource(c,otherBase,'audit_other_scene',{domain:'canon',resource_class:'public',safe_code:'public_rain'});
++    await resource(c,otherBase,'audit_other_guard',{domain:'design',resource_class:'public',safe_code:'permanent_guard'});
++    historical=await resource(c,base.A,'audit_history_old',{resource_key:'audit_history',domain:'canon',resource_class:'public',safe_code:'public_rain'});
++    projectLevel=await resource(c,base.A,'audit_project_level',{scene_id:null,domain:'canon',resource_class:'public',safe_code:'public_rain'});
++    const wide=await createScope(c,'peer',base.A,{scene_id:null,max_canon_watermark:20});
++    await grant(c,'peer','compile_context',wide);
++    await createTask(c,'task_audit_future','peer',base.A,{canon_watermark:20});
++    await createTask(c,'task_audit_other','peer',otherBase);
++  });
++  bindings.set(handle,gateway.bindIdentity(handle));
++  // 正常编译先冻结 v1 来源；随后合法追加 v2，使 v1 成为可追溯历史。
++  await compile('peer');
++  await using('admin',c=>resource(c,base.A,'audit_history_current',{resource_key:'audit_history',domain:'canon',resource_class:'public',safe_code:'public_rain',version_no:2,canon_watermark:6}));
++  await compile('peer','task_audit_future');await compile('peer','task_audit_other');
++  await using('admin',async c=>{
++    for(const rr of [other,historical])await insert(c,'retrieval_hit',{hit_id:id('audit_scope_hit'),task_id:task.writerA,resource_id:rr.resource_id,score:500,snippet:canary,title:markers[1],metadata:{nested:{source:rr.resource_id}}});
++  });
++  await compile('writerA');
++  return {handle,scopedScope,other,historical,projectLevel};
++}
++async function auditEventsFor(rr){return using('admin',async c=>(await c.query(`SELECT * FROM ${q('access_audit_record')} WHERE task_id=$1 AND restricted_resource_id=$2 ORDER BY audit_id`,[task.writerA,rr.resource_id])).rows);}
++async function auditRefsFor(rr){return using('admin',async c=>(await c.query(`SELECT sr.*,i.bundle_id,st.task_id,st.project_id,st.scene_id,st.viewpoint_id,st.canon_watermark AS task_watermark FROM ${q('context_source_reference')} sr JOIN ${q('context_item')} i USING(item_id) JOIN ${q('context_bundle')} b USING(bundle_id) JOIN ${q('scene_task_version')} st USING(task_id) WHERE sr.resource_id=$1 ORDER BY sr.reference_id`,[rr.resource_id])).rows);}
++function noAuditIdentifiers(response,rr,refs=[]){
++  const serialized=JSON.stringify(response);
++  for(const value of [rr.resource_id,rr.source_version_id,...refs.flatMap(ref=>[ref.reference_id,ref.item_id])])safe(!serialized.includes(value),'nested_forbidden_audit_identifier_absent');
++}
++async function rawAuditPreserved(before){const after=await using('admin',async c=>(await c.query(`SELECT * FROM ${q('access_audit_record')} WHERE audit_id=ANY($1::bigint[]) ORDER BY audit_id`,[before.map(e=>e.audit_id)])).rows);equal(after,before,'original_audit_rows_and_references_unchanged');}
++async function auditScopeRegressions(t){
++  const fixture=await auditScopeFixture();
++  const scope=await using('admin',async c=>(await c.query(`SELECT * FROM ${q('data_scope')} WHERE scope_id=$1`,[fixture.scopedScope])).rows[0]);
++  await sub(t,'修复回归：场景受限审计员为真实独立 LOGIN',async()=>using(fixture.handle,async c=>{
++    const row=(await c.query(`SELECT current_user,session_user,rolsuper,rolbypassrls,rolcreaterole,rolcreatedb,(SELECT count(*)::int FROM pg_catalog.pg_auth_members WHERE member=r.oid) AS memberships,(SELECT count(*)::int FROM pg_catalog.pg_tables WHERE schemaname=$1 AND tableowner=session_user) AS owned FROM pg_catalog.pg_roles r WHERE rolname=session_user`,[S])).rows[0];
++    safe(row.session_user===`${prefix}_auditscoped`&&row.current_user===row.session_user,'scoped_auditor_real_login');safe(!row.rolsuper&&!row.rolbypassrls&&!row.rolcreaterole&&!row.rolcreatedb&&row.memberships===0&&row.owned===0,'scoped_auditor_restricted_flags');
++    return JSON.stringify({realRestrictedLogin:true,noRoleMembership:true,noOwnedTables:true,sceneRestricted:true,viewpointStillTaskBound:true});
++  }));
++  await sub(t,'修复回归：A 任务审计不得返回 B 的真实资源标识',async()=>{
++    const rr=resources.rain_B;const raw=await auditEventsFor(rr);safe(raw.some(e=>e.action==='retrieval_filter'&&e.actor_id==='writerA'),'real_foreign_filter_audit_exists');
++    safe(rr.project_id!==base.A.project&&rr.canon_watermark<=100&&rr.resource_class==='public'&&rr.proposition_key===null,'only_project_counterexample');
++    const refs=await auditRefsFor(rr);safe(refs.length>0,'real_foreign_project_bundle_sources_exist');
++    const response=await api('auditor','read_audit',{task_id:task.writerA});safe(response.ok,'original_auditor_task_request_allowed');noAuditIdentifiers(response,rr,refs);await rawAuditPreserved(raw);
++    return JSON.stringify({foreignFilterAudits:raw.length,otherWatermarkClassPropositionChecksPass:true,requestAllowed:true,nestedForeignIdentifiers:0,originalAuditPreserved:true,foreignSourceRefsTested:refs.length});
++  });
++  const cases=[['场景',fixture.other,'scene'],['水位',resources.future,'watermark'],['类别',resources.known_hidden_A,'class'],['命题',resources.belief_A,'proposition']];
++  for(const [label,rr,dimension] of cases)await sub(t,`修复回归：${label} 越界事件与来源均不可随结果返回`,async()=>{
++    const raw=await auditEventsFor(rr);const refs=await auditRefsFor(rr);safe(raw.length>0&&refs.length>0,'real_audit_and_legitimate_source_rows_exist');
++    safe(rr.project_id===scope.project_id,'same_project_counterexample');
++    if(dimension==='scene')safe(rr.scene_id!==scope.scene_id&&rr.canon_watermark<=10&&scope.resource_classes.includes(rr.resource_class)&&rr.proposition_key===null,'only_resource_scene_rejected');
++    if(dimension==='watermark')safe(rr.scene_id===scope.scene_id&&rr.canon_watermark>10&&scope.resource_classes.includes(rr.resource_class)&&rr.proposition_key===null,'only_resource_watermark_rejected_in_event');
++    if(dimension==='class')safe(rr.scene_id===scope.scene_id&&rr.canon_watermark<=10&&!scope.resource_classes.includes(rr.resource_class)&&scope.allowed_propositions.includes(rr.proposition_key),'only_class_rejected');
++    if(dimension==='proposition')safe(rr.scene_id===scope.scene_id&&rr.canon_watermark<=10&&scope.resource_classes.includes(rr.resource_class)&&!scope.allowed_propositions.includes(rr.proposition_key),'only_proposition_rejected');
++    const response=await api(fixture.handle,'read_audit',{task_id:task.writerA});safe(response.ok,'in_scope_task_api_still_allowed');noAuditIdentifiers(response,rr,refs);await rawAuditPreserved(raw);
++    if(['class','proposition'].includes(dimension))safe(refs.some(ref=>ref.scene_id===scope.scene_id&&Number(ref.task_watermark)<=10),'source_parent_task_in_scope');
++    return JSON.stringify({rawEvents:raw.length,sourceRows:refs.length,taskRequestAllowed:true,nestedForbiddenIdentifiers:0,originalAuditPreserved:true,
++      sourceTaskAlsoOutsideSceneOrWatermark:['scene','watermark'].includes(dimension)});
++  });
++  await sub(t,'修复回归：允许资源、无资源普通事件和项目级资源仍可追溯',async()=>{
++    const before=await using('admin',async c=>(await c.query(`SELECT audit_id FROM ${q('access_audit_record')} WHERE task_id=$1 AND restricted_resource_id IS NULL AND actor_id='writerA'`,[task.writerA])).rows);safe(before.length>0,'ordinary_null_resource_events_exist');
++    const response=await api(fixture.handle,'read_audit',{task_id:task.writerA});safe(response.ok,'legal_audit_read');
++    safe(response.events.some(e=>e.restricted_resource_id===resources.rain_A.resource_id),'authorized_event_identifier_retained');
++    safe(response.source_refs.some(ref=>ref.resource_id===resources.rain_A.resource_id),'authorized_source_identifier_retained');
++    safe(response.source_refs.some(ref=>ref.resource_id===fixture.projectLevel.resource_id),'project_level_resource_allowed_for_scene_scope');
++    safe(before.some(original=>response.events.some(e=>String(e.audit_id)===String(original.audit_id)&&e.restricted_resource_id===null)),'null_resource_events_preserved');
++    return JSON.stringify({authorizedEventsRetained:true,authorizedSourceIdentifiersRetained:true,nullResourceEventsRetained:true,projectLevelSourcesRetained:true});
++  });
++  await sub(t,'修复回归：合法旧版本来源不受当前业务检索过滤器影响',async()=>{
++    const rr=fixture.historical;const raw=await auditEventsFor(rr);const refs=await auditRefsFor(rr);safe(raw.some(e=>e.action==='retrieval_filter')&&refs.length>0,'historical_source_and_filter_audit_exist');
++    const isCurrent=await using('admin',async c=>(await c.query(`SELECT ${q('resource_allowed')}(rr,st,ds) AS allowed FROM ${q('resource')} rr CROSS JOIN ${q('scene_task_version')} st CROSS JOIN ${q('data_scope')} ds WHERE rr.resource_id=$1 AND st.task_id=$2 AND ds.scope_id=$3`,[rr.resource_id,task.writerA,scopeIds.writerA])).rows[0].allowed);safe(isCurrent===false,'history_is_not_current_business_source');
++    const response=await api(fixture.handle,'read_audit',{task_id:task.writerA});safe(response.ok&&response.events.some(e=>e.restricted_resource_id===rr.resource_id)&&response.source_refs.some(ref=>ref.resource_id===rr.resource_id&&ref.source_version_id===rr.source_version_id),'historical_audit_reference_retained');await rawAuditPreserved(raw);
++    return JSON.stringify({notCurrentBusinessVersion:true,legalFrozenHistoricalSource:true,historicalEventAndSourceRetained:true,originalAuditPreserved:true});
++  });
++  await sub(t,'修复回归：写作身份仍不能读审计，B 任务与其他人物视角仍拒绝',async()=>{
++    await expectedDeny(api('writerA','read_audit',{task_id:task.writerA}));await expectedDeny(api(fixture.handle,'read_audit',{task_id:task.writerB}));await expectedDeny(api(fixture.handle,'read_audit',{task_id:task.pov}));
++    return JSON.stringify({writingAuditDenied:true,foreignTaskDenied:true,taskViewpointCheckRetained:true});
++  });
++  await sub(t,'修复回归：新内部范围判断缺目标默认拒绝且无公开执行旁路',async()=>{
++    const absent=await using('admin',async c=>(await c.query(`SELECT ${q('audit_resource_in_scope')}(NULL::${q('resource')},ds) AS visible FROM ${q('data_scope')} ds WHERE scope_id=$1`,[fixture.scopedScope])).rows[0].visible);safe(absent===false,'missing_resource_fails_closed');
++    await sqlDenied('writerA',`SELECT ${q('audit_resource_in_scope')}(NULL::${q('resource')},NULL::${q('data_scope')})`);await sqlDenied(fixture.handle,`SELECT ${q('audit_resource_in_scope')}(NULL::${q('resource')},NULL::${q('data_scope')})`);
++    return JSON.stringify({missingResourceDenied:true,writerHelperDenied:true,auditorHelperDenied:true});
++  });
++}
+--- before/README.md
++++ after/README.md
+@@ -8,16 +8,16 @@
+ cd /Users/yuka/agent-book/prototypes/authorization-safe-context
+ pnpm install --frozen-lockfile --ignore-scripts
+ pnpm prototype
+-node verification/verify-protected.mjs
++node verification/audit-scope-repair/verify-protected.mjs
+ ```
+ 
+-沿用 PostgreSQL `18.6`、`node-pg-migrate@9.0.0`、`pg@8.23.0` 及已验证运行器的 TCP 就绪、有限超时、迁移/测试、结果新鲜度检查和 finally 清理。实测 Node `22.23.2`、pnpm `11.18.0`、Docker `29.4.0`，迁移/测试/最终退出码均为 0。5 个顶层测试、109 个参数化子场景通过；TAP 合计 114，无跳过。
++沿用 PostgreSQL `18.6`、`node-pg-migrate@9.0.0`、`pg@8.23.0` 及已验证运行器的 TCP 就绪、有限超时、迁移/测试、结果新鲜度检查和 finally 清理。实测 Node `22.23.2`、pnpm `11.18.0`、Docker `29.4.0`，本轮迁移/测试/最终退出码均为 0。5 个顶层测试、119 个参数化子场景通过；TAP 合计 124，无跳过。其中原有 109 个场景保留，审计 Scope 修复新增 10 个回归。历史 109 场景报告保存在 `verification/audit-scope-repair/before/verification/runner-result.md`，不能把历史结果当成本轮新增边界的证明。
+ 
+ | 分组 | 实测子场景 | 重点 |
+ |---|---:|---|
+ | A 真实身份及写入边界 | 58 | 独立 LOGIN 正例、42501 权限拒绝、辅助函数/高权限入口关闭、伪造参数及会话切换、真实 Candidate 来源链 |
+ | B 秘密、视角与检索 | 15 | 知识/信念/披露独立、批准线索、明确否定与 unknown、先授权后排序、异常命中重建、安全校验反馈 |
+-| C Bundle 来源/冻结/复用 | 21 | 确切模型输入字节摘要、有序条目和来源、不可变/禁止追加、跨主体隔离、撤销/到期/未知 Scope/策略、必要安全预算 |
++| C Bundle 来源/冻结/复用 | 31 | 确切模型输入字节摘要、有序条目和来源、不可变/禁止追加、跨主体隔离、撤销/到期/未知 Scope/策略、必要安全预算；新增审计资源 Scope 回归 10 项 |
+ | D 日志、错误与审计 | 6 | canary/敏感字段扫描、白名单日志、内部异常边界、拒绝审计真正提交、数据库日志扫描 |
+ | E 并发与连接隔离 | 9 | 两种具体 PID 阻塞顺序、共享入口交替身份、故障/真实 COMMIT/外层回滚、ACL 与最终扫描 |
+ 
+@@ -97,7 +97,7 @@
+ 
+ 模型可见：公开 Bundle ID、实际 `model_input`、该输入的 hash，以及编译/策略/预算版本、允许水位、受限视角标记和有序 `{order,kind,text}`。模型不会收到原资源 ID、来源版本、秘密标识、原始内容摘要、标题/路径/metadata、Scope / Grant ID 或校验内部解释。
+ 
+-受限来源追踪：`context_source_reference` 保存资源/来源版本、原始内容摘要、知识/信念/披露证据 ID、权限依据、投影规则版本；Context Item 保存入选原因。审计读取入口独立授权，按自身项目、场景、视角、水位和资源范围返回治理元数据，能够追溯被重写来源但不返回秘密原文。写作角色不能读这些表或审计入口。
++受限来源追踪：`context_source_reference` 保存资源/来源版本、原始内容摘要、知识/信念/披露证据 ID、权限依据、投影规则版本；Context Item 保存入选原因。审计读取入口独立授权，按自身项目、场景、视角、水位和资源范围返回治理元数据，能够追溯被重写来源但不返回秘密原文。`events` 的 Task 范围与 `restricted_resource_id` 实际资源范围分别判断；非空引用须正向确认资源存在、项目、场景、水位、类别和命题均在 Scope 内，否则过滤整条事件。NULL 资源引用的普通事件继续按 Task 范围返回。`source_refs` 使用同一内部资源判断；场景受限 Scope 允许项目级（scene 为 NULL）资源，资源本身不新增人物视角语义。此审计判断不要求 active、当前版本或当前 Design Revision，保留合法历史追溯。写作角色不能读这些表或审计入口。
+ 
+ Bundle `payload` 保存实际模型字段；`model_input` 是数据库 `payload::text` 的明确 UTF-8 序列化结果。`content_hash=SHA256(model_input字节)`，测试同时用 Node 按确切字符串重算并解析对照 payload。它不是秘密原文摘要，也不依赖客户端 JSON 排序或空格。格式约定为 PostgreSQL 18.6 JSONB 文本的 `safe-payload-v1`；正式跨语言整合需固定同一序列化规范。
+ 
+@@ -135,11 +135,28 @@
+ 
+ 故障测试临时添加触发器并在 finally 删除，不关闭业务约束、不向 API 添加故障开关。覆盖来源写入失败、Candidate 写入失败、真实 COMMIT 缺来源、同事务编译/Generation/Candidate 返回后外层 ROLLBACK。独立连接直接 COUNT Bundle / Item / Source / Generation / Candidate，检查没有可用半成品；未提交状态对独立连接不可见。
+ 
+-## 文件保护与清理
++
++## 本轮最小修复：审计资源 Scope
++
++修复前在新的一次性 PostgreSQL 实例、原迁移和原夹具上真实复现：writerA 编译 A 后产生 1 条引用 B 资源的过滤审计；真实 auditor 读取 A 的任务时返回该标识。B 的水位、类别和命题条件均满足其余检查，原始审计保持不变。这不是静态推断。证据只保存布尔与计数，见 [reproduction-before.md](verification/audit-scope-repair/reproduction-before.md)。原代码快照与历史报告未覆盖。
++
++本轮迁移只新增内部 `audit_resource_in_scope` 和替换 `api_read_audit` 的两个资源过滤条件。保留原入口授权及 Task 项目/场景/视角/水位判断；对实际资源另行正向确认，未知即拒绝。该辅助函数继承受控所有者、固定 search_path、PUBLIC EXECUTE 撤销，不向任何登录角色开放。未修改审计记录写入，未清空引用、删除或覆盖旧审计。
++
++新增真实 `auditscoped` 登录：项目 A、场景 A、hero A、最大水位 10，类别只允许 public / narrative，命题集合排除 belief。原有八个登录和测试保持不变。新增普通范围夹具及合法编译输入验证 events 和 source_refs；没有关闭触发器或插入违反 Bundle 完整性的来源。
++
++新增 10 个回归覆盖跨项目、同项目跨场景、超水位、类别、命题、允许资源/NULL 引用/项目级资源、旧版本来源、写作/其他项目/视角拒绝、辅助函数权限。所有返回结果对禁止的资源 ID、来源版本、Reference/Item 标识作嵌套检查，同时断言允许的标识确实存在，不能以删光全部标识冒充安全。
++
++类别/命题的 source_refs 反例父 Task 在 Scope 内。合法 Bundle 的项目、场景和来源水位已受编译完整性约束，因此场景/水位的越界 source_refs 通过合法的另场景或高水位 Task 编译，其父 Task 也会被范围过滤；事件反例则由允许的 A Task 真实引用越界资源，隔离资源条件。没有为制造反例破坏来源约束。历史正例先合法冻结 v1，再追加 v2，证明已非当前业务版本的 v1 仍可审计追溯。
++
++本轮独立保护基线为 434 个路径，包含根 `.gitignore`、运行器、工具网关、依赖/锁文件、正式文档、十二个旧原型及当前原始核验记录，前后重新枚举核对通过。只许可修改当前迁移、测试、相关 README、运行报告、安全证据和文件清单；新核验材料集中在 `verification/audit-scope-repair/`，没有改写旧 before 清单。使用本轮 [verify-protected.mjs](verification/audit-scope-repair/verify-protected.mjs)，不重新写入原批次的历史核验文件。
++
++本轮完整报告见 [runner-result.md](verification/runner-result.md)，历史/复现/新增回归/完整运行的区分及 PID、审计保留证据见 [security-evidence.md](verification/security-evidence.md)。复现和完整运行的容器、临时结果均已清理；未修改运行器、网关、根 `.gitignore` 或依赖，没有新增独立原型。
++
++## 原批次文件保护与清理（历史记录）
+ 
+ 修改前重新枚举并记录 SHA-256，修改后重新枚举比较内容和路径集合，检查新增、遗漏、重复。实际前后均为 **418 个保护路径**，没有预设数量；覆盖 docs/00—15、全部十二个既有原型、根依赖和其他仓库文件，沿用既有方式跟随旧缓存符号链接。排除 `.git`、`node_modules`、本轮目录及其缓存别名。
+ 
+-根 `.gitignore` 仅精确追加 `prototypes/authorization-safe-context/.test-results.json\n`，新增 57 字节。见 [hash-validation.txt](verification/hash-validation.txt)、前后 SHA-256 清单与 Git status。没有暂存、提交、推送、reset 或 clean；未修改正式文档或旧原型。
++根 `.gitignore` 仅精确追加 `prototypes/authorization-safe-context/.test-results.json\n`，新增 57 字节。历史结果见 [hash-validation.txt](verification/hash-validation.txt)、原批次前后 SHA-256 清单与 Git status。本轮改用独立的 [修复核验](verification/audit-scope-repair/hash-validation.txt)。没有暂存、提交、推送、reset 或 clean；未修改正式文档或旧原型。
+ 
+ 运行器已删除本轮容器和临时 `.test-results.json`；随机前缀角色随实例一起销毁，未操作其他实例或执行全局 Docker 清理。未新增 Web 框架、模型 SDK 或数据库依赖。
+ 

@@ -1,0 +1,21 @@
+新增交付：17 个文件（相对本原型目录，排除依赖和临时结果）
+README.md
+migrations/001_canon_structured_fixture.mjs
+package.json
+pnpm-lock.yaml
+scripts/run-prototype.mjs
+test/canon-structured.test.mjs
+verification/file-manifest.txt
+verification/git-status-after.txt
+verification/git-status-before.txt
+verification/gitignore-after.sha256
+verification/gitignore-before.sha256
+verification/gitignore-before.txt
+verification/hash-validation.txt
+verification/protected-sha256-after.txt
+verification/protected-sha256-before.txt
+verification/runner-result.md
+verification/verify-protected.mjs
+
+修改（相对仓库根）：
+.gitignore：原字节保留，仅追加 prototypes/canon-structured-mapping/.test-results.json

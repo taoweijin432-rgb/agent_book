@@ -1,0 +1,393 @@
+{
+  "stage": "before",
+  "runId": "8bef0313-bce0-4489-9221-943947b53e24",
+  "startedAt": "2026-10-27T07:33:22.921Z",
+  "imageDigest": "postgres@sha256:86c951e05bf56c93d95d397747fb8820ac76cc3bedb78f43abd83eedbe3666ae",
+  "migrationSha256": "e5ac5d7ff9c094917d79f543b145ed88c9851ff105e353a6359b406f097a8c6c",
+  "migration": {
+    "ok": true,
+    "migrations_applied": 7
+  },
+  "result": {
+    "stage": "before",
+    "cases": [
+      {
+        "name": "test_generation expires between execution and COMMIT",
+        "status": "passed",
+        "evidence": {
+          "mode": "test_generation",
+          "deadline": "2026-10-27 07:33:27.396138+00",
+          "executedAt": "2026-10-27T07:33:25.403576+00:00",
+          "databaseObserved": "2026-10-27 07:33:27.402744+00",
+          "authorPid": 120,
+          "checks": [
+            {
+              "position": 1,
+              "check": "selection_binding",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 2,
+              "check": "body_protocol",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 3,
+              "check": "input_bindings",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 4,
+              "check": "writer_authorization",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 5,
+              "check": "bundle_payload",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 6,
+              "check": "review_bytes",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 7,
+              "check": "author_rule",
+              "required": false,
+              "outcome": "unknown",
+              "code": "RULE_NOT_CHECKED"
+            }
+          ],
+          "rebuiltChecks": [
+            {
+              "position": 1,
+              "check": "selection_binding",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 2,
+              "check": "body_protocol",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 3,
+              "check": "input_bindings",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 4,
+              "check": "writer_authorization",
+              "required": true,
+              "outcome": "failed",
+              "code": "WRITER_INPUT_INVALID"
+            },
+            {
+              "position": 5,
+              "check": "bundle_payload",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 6,
+              "check": "review_bytes",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 7,
+              "check": "author_rule",
+              "required": false,
+              "outcome": "unknown",
+              "code": "RULE_NOT_CHECKED"
+            }
+          ],
+          "overall": "passed",
+          "commit": {
+            "ok": false,
+            "sqlstate": "23514",
+            "error": "VALIDATION_INCOMPLETE"
+          },
+          "noPartialRows": true,
+          "persisted": {
+            "runs": 0,
+            "checks": 0,
+            "requests": 0,
+            "successfulAudit": 0,
+            "epochs": 0
+          }
+        }
+      },
+      {
+        "name": "manual_input expires between execution and COMMIT",
+        "status": "passed",
+        "evidence": {
+          "mode": "manual_input",
+          "deadline": "2026-10-27 07:33:29.995615+00",
+          "executedAt": "2026-10-27T07:33:27.924541+00:00",
+          "databaseObserved": "2026-10-27 07:33:30.003313+00",
+          "authorPid": 157,
+          "checks": [
+            {
+              "position": 1,
+              "check": "selection_binding",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 2,
+              "check": "body_protocol",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 3,
+              "check": "input_bindings",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 4,
+              "check": "writer_authorization",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 5,
+              "check": "bundle_payload",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 6,
+              "check": "review_bytes",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 7,
+              "check": "author_rule",
+              "required": false,
+              "outcome": "unknown",
+              "code": "RULE_NOT_CHECKED"
+            }
+          ],
+          "rebuiltChecks": [
+            {
+              "position": 1,
+              "check": "selection_binding",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 2,
+              "check": "body_protocol",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 3,
+              "check": "input_bindings",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 4,
+              "check": "writer_authorization",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 5,
+              "check": "bundle_payload",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 6,
+              "check": "review_bytes",
+              "required": true,
+              "outcome": "passed",
+              "code": "CHECK_PASSED"
+            },
+            {
+              "position": 7,
+              "check": "author_rule",
+              "required": false,
+              "outcome": "unknown",
+              "code": "RULE_NOT_CHECKED"
+            }
+          ],
+          "overall": "passed",
+          "commit": {
+            "ok": true,
+            "sqlstate": null,
+            "error": null
+          },
+          "checksAndHashesUnchanged": true,
+          "persisted": {
+            "runs": 1,
+            "checks": 7,
+            "requests": 1,
+            "successfulAudit": 1,
+            "epochs": 1
+          },
+          "currentApplicable": false,
+          "writerDenied": true
+        }
+      }
+    ],
+    "logs": [
+      {
+        "event": "command_result",
+        "operation": "context-grant:create",
+        "outcome": "allowed",
+        "request_id": "30969388-4173-432c-91e9-5976f9c4a070"
+      },
+      {
+        "event": "command_result",
+        "operation": "context:compile",
+        "outcome": "allowed",
+        "request_id": "f9e38ca2-affb-4262-846c-42214cc9dfe0"
+      },
+      {
+        "event": "command_result",
+        "operation": "generation-grant:create",
+        "outcome": "allowed",
+        "request_id": "a424997d-5ba2-4d4e-b085-b44e8e5cfb84"
+      },
+      {
+        "event": "command_result",
+        "operation": "test-workflow:create",
+        "outcome": "allowed",
+        "request_id": "64d99f87-a8d9-4faf-bb7d-6c4eb6e591c0"
+      },
+      {
+        "event": "command_result",
+        "operation": "generation:execute",
+        "outcome": "allowed",
+        "request_id": "088b6663-8ec5-4dc9-b3db-0afb3ee690e9"
+      },
+      {
+        "event": "command_result",
+        "operation": "workflow:read",
+        "outcome": "allowed",
+        "request_id": "ab8d61e0-d222-48b0-a421-0f8804e2fc42"
+      },
+      {
+        "event": "command_result",
+        "operation": "candidate:select",
+        "outcome": "allowed",
+        "request_id": "3f849cd1-790c-4235-b5bb-2b1311fb08f7"
+      },
+      {
+        "event": "command_result",
+        "operation": "validation-policy:publish",
+        "outcome": "allowed",
+        "request_id": "169ce9b0-73a5-414e-b8c6-e46c187a0a78"
+      },
+      {
+        "event": "command_result",
+        "operation": "context-grant:create",
+        "outcome": "allowed",
+        "request_id": "c1f60a8b-6ad1-4b9f-90e6-d12c0c556de7"
+      },
+      {
+        "event": "command_result",
+        "operation": "context:compile",
+        "outcome": "allowed",
+        "request_id": "967c3eff-92a4-43c0-9367-4c9d54488a75"
+      },
+      {
+        "event": "command_result",
+        "operation": "writing-grant:create",
+        "outcome": "allowed",
+        "request_id": "3ddf1c2a-1322-4502-ad8e-b9ae0b9e355d"
+      },
+      {
+        "event": "command_result",
+        "operation": "workflow:create",
+        "outcome": "allowed",
+        "request_id": "2b2e49e4-f7bd-4161-87db-00dfe3cd88fb"
+      },
+      {
+        "event": "command_result",
+        "operation": "candidate:input",
+        "outcome": "allowed",
+        "request_id": "209f7760-f1a0-4a3c-ac2a-6570222e0c72"
+      },
+      {
+        "event": "command_result",
+        "operation": "candidate:select",
+        "outcome": "allowed",
+        "request_id": "9bf1df98-6f56-47e5-9b7f-77c1765988ed"
+      },
+      {
+        "event": "command_result",
+        "operation": "validation-policy:publish",
+        "outcome": "allowed",
+        "request_id": "4620489e-3668-439e-9bd0-6240b518042c"
+      },
+      {
+        "event": "command_result",
+        "operation": "validation:current",
+        "outcome": "denied",
+        "request_id": "bb56e5e5-e781-4b9c-a2d0-0c8ab4deab45"
+      },
+      {
+        "event": "command_result",
+        "operation": "workflow:read",
+        "outcome": "denied",
+        "request_id": "ae44956d-4435-4468-b6d6-ddc56ecc9956"
+      }
+    ],
+    "errors": [
+      {
+        "ok": false,
+        "error": "VALIDATION_STALE"
+      },
+      {
+        "ok": false,
+        "error": "ACCESS_DENIED"
+      }
+    ],
+    "sameBodyAcrossModes": true,
+    "beforeOnly": true
+  },
+  "leaks": 0,
+  "valid": true,
+  "containerCleanup": true,
+  "temporaryCleanup": true,
+  "ok": true
+}

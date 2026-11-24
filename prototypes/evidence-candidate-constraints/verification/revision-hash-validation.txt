@@ -1,0 +1,8 @@
+scope=docs/*.md plus prototypes/time-interval-constraints files plus evidence prototype runner/package/lock
+before_count=44
+after_count=44
+before_invalid_sha256=0
+after_invalid_sha256=0
+before_duplicate_paths=0
+after_duplicate_paths=0
+before_after_comparison=identical

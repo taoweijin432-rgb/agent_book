@@ -1,0 +1,8 @@
+核验状态：PASS
+受保护文件：修改前 321 个路径；修改后 321 个路径
+范围：docs/00—15、全部九个既有原型（含 canon-commit-preconditions）、根依赖及其他仓库文件；排除 .git、node_modules 和本轮新增目录（含指向它的缓存别名）；按修改前口径跟随旧缓存符号链接。
+前后 SHA-256 与路径集合比较：全部一致
+新增、遗漏、重复路径检查：通过
+.gitignore 精确追加：prototypes/canon-commit-atomic-core/.test-results.json
+新增字节数：55；预期 55
+仅运行 git status；没有暂存、提交、推送、reset 或 clean。

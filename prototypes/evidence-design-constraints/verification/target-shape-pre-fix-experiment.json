@@ -1,0 +1,19 @@
+{
+  "database": "one-time PostgreSQL 18.6 fixture",
+  "scenario": "author_design_revision support with all eight target columns explicitly NULL",
+  "supportInsert": {
+    "status": "succeeded",
+    "sqlstate": null,
+    "constraint": null
+  },
+  "commit": {
+    "status": "failed",
+    "sqlstate": "23514",
+    "constraint": "evidence_design_complete",
+    "message": "Evidence prefx_evidence target does not belong to the selected revision and project"
+  },
+  "persisted": {
+    "parent_count": 0,
+    "support_count": 0
+  }
+}

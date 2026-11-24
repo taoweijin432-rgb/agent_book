@@ -1,0 +1,13 @@
+{
+  "archive": "delivery.zip",
+  "archive_sha256": "2ef755543f5580aeab331dc6d69f6eb901e5fccd78779fd57ddca93f0e6f5676",
+  "manifest_sha256": "cb6412da667605d9a08a33f7b3c15d8bd1a5d899a5c7ff1612e78c2b1d7667e9",
+  "files": 26,
+  "doc16Included": true,
+  "rootPackageIncluded": true,
+  "actual008Included": true,
+  "entriesExactlyMatchWorkingFiles": true,
+  "noCredentialsDependenciesCachesOrTemporaryResults": true,
+  "archiveIntegrity": true,
+  "scope": "本轮变更包，叠加现有仓库复核；完整保护文件摘要见 workspace-before.json。"
+}

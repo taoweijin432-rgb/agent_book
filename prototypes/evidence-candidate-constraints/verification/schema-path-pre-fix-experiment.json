@@ -1,0 +1,20 @@
+{
+  "mode": "probe",
+  "node": "v22.23.2",
+  "connectionSearchPath": "public",
+  "sqlQualification": "evidence_candidate_constraint_fixture.*",
+  "validCommit": {
+    "status": "failed",
+    "stage": "COMMIT",
+    "code": "42883",
+    "constraint": null,
+    "message": "function validate_evidence_candidate(text) does not exist",
+    "ids": {
+      "projectId": "public_path_project_1792133494263_2064_1",
+      "workflowRunId": "public_path_workflow_1792133494263_2064_2",
+      "candidateVersionId": "public_path_candidate_1792133494263_2064_3",
+      "eventId": "public_path_event_1792133494263_2064_4",
+      "evidenceId": "public_path_evidence_1792133494263_2064_5"
+    }
+  }
+}

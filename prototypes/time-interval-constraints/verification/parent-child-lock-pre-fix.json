@@ -1,0 +1,39 @@
+{
+  "server": "PostgreSQL 18.6",
+  "isolation": "READ COMMITTED",
+  "transactionPids": {
+    "A": 110,
+    "B": 111
+  },
+  "blockingObservation": {
+    "wait_event_type": "Lock",
+    "wait_event": "transactionid",
+    "blockers": [
+      110
+    ],
+    "state": "active",
+    "query": "UPDATE candidate_version SET project_id=project_id WHERE candidate_version_id=$1"
+  },
+  "candidateVersionNowait": {
+    "ok": false,
+    "code": "55P03",
+    "message": "could not obtain lock on row in relation \"candidate_version\""
+  },
+  "aCommit": {
+    "ok": true
+  },
+  "bUpdate": {
+    "ok": false,
+    "code": "40P01",
+    "message": "deadlock detected"
+  },
+  "bCommit": null,
+  "final": [
+    {
+      "workflow_project": "project_1790574635450_5a584da2bc1ec",
+      "candidate_project": "project_1790574635450_5a584da2bc1ec",
+      "event_project": "project_1790574635450_5a584da2bc1ec",
+      "time_interval_id": "interval_1790574635450_1d3c4926be40e"
+    }
+  ]
+}

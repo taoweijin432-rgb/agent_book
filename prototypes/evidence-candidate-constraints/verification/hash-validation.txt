@@ -1,0 +1,8 @@
+scope=docs/*.md plus prototypes/time-interval-constraints files excluding node_modules and .DS_Store
+before_count=41
+after_count=41
+before_invalid_sha256=0
+after_invalid_sha256=0
+before_duplicate_paths=0
+after_duplicate_paths=0
+before_after_comparison=identical

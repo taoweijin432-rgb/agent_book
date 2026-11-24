@@ -1,0 +1,16 @@
+核验状态：PASS
+本轮独立保护清单：修改前 434；修改后 434；不预设数量。
+保护：正式 docs/00—15、十二个既有原型、当前运行器、工具网关、package.json、锁文件、根 .gitignore，以及当前原始保护清单/核验脚本和其他仓库文件。
+仅排除本轮六个许可修改路径及当前 audit-scope-repair 核验目录；旧缓存别名按真实路径作同样判断。排除 .git 与 node_modules。
+内容 SHA-256、路径新增/遗漏/重复检查：PASS
+原始 verification/protected-sha256-before.txt 未覆盖；本轮独立清单不替换历史基线。
+Git 仅 status；没有暂存、提交、推送、reset 或 clean。
+
+六个许可路径中的实际内容改动：
+prototypes/authorization-safe-context/README.md
+prototypes/authorization-safe-context/migrations/001_authorization_safe_context.mjs
+prototypes/authorization-safe-context/test/authorization-safe-context.test.mjs
+prototypes/authorization-safe-context/verification/runner-result.md
+prototypes/authorization-safe-context/verification/security-evidence.md
+prototypes/authorization-safe-context/verification/file-manifest.txt
+

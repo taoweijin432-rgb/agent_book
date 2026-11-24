@@ -1,0 +1,8 @@
+scope=docs/*.md plus time-interval and evidence-candidate prototype files excluding node_modules/.DS_Store/transient results
+before_count=58
+after_count=58
+before_invalid_sha256=0
+after_invalid_sha256=0
+before_duplicate_paths=0
+after_duplicate_paths=0
+before_after_comparison=identical
